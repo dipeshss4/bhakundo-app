@@ -1,4 +1,32 @@
-class CkEditor {
+setTimeout(function() {
+    document.querySelector('.alert-danger').style.display = 'none';
+}, 5000); // 5000
 
-}
-Dashmix.helpersOnLoad(['js-ckeditor5']);
+const csrfToken = document.head.querySelector('meta[name="csrf-token"]').content;
+console.log(csrfToken);
+ClassicEditor
+    .create( document.querySelector( '#js-ckeditor5-classic' ),{
+        ckfinder: {
+            uploadUrl: 'http://localhost:8000/api/uploadNewsImage',
+
+        }
+    })
+    .catch( error => {
+        console.error( error );
+    } );
+
+ClassicEditor.on('fileUploadResponse', function (evt) {
+    // Get the uploaded file data from the event
+    var file = evt.data.file;
+
+    // Get the URL of the uploaded image
+    var url = file.url;
+
+    // Create an image element with the URL
+    var img = document.createElement('img');
+    img.src = url;
+
+    // Add the image element to your page
+    document.body.appendChild(img);
+});
+

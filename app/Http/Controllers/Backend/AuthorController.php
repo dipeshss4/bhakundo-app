@@ -3,28 +3,43 @@
 namespace App\Http\Controllers\Backend;
 
 use App\Http\Controllers\Controller;
+use App\Http\Requests\AuthorRequest;
+use App\Models\Author;
+use App\Models\User;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
 
 class AuthorController extends Controller
 {
     /**
      * Display a listing of the resource.
      *
-     * @return \Illuminate\Http\Response
+     * @return \Illuminate\Contracts\Foundation\Application|\Illuminate\Contracts\View\Factory|\Illuminate\Contracts\View\View
      */
     public function index()
     {
-        //
+      $author=  Author::with('user')->whereHas('user', function($query) {
+            $query->whereHas('roles', function($query) {
+                $query->where('name', 'editor');
+            });
+        })->get();
+
+      return  view('pages.author.index-author',compact('author'));
+
+
     }
 
     /**
      * Show the form for creating a new resource.
      *
-     * @return \Illuminate\Http\Response
+     * @return \Illuminate\Contracts\Foundation\Application|\Illuminate\Contracts\View\Factory|\Illuminate\Contracts\View\View
      */
     public function create()
     {
-        //
+        $users = User::whereHas('roles', function ($query) {
+            $query->where('name', 'editor');
+        })->get();
+        return  view('pages.author.create-author',compact('users'));
     }
 
     /**
@@ -33,9 +48,18 @@ class AuthorController extends Controller
      * @param  \Illuminate\Http\Request  $request
      * @return \Illuminate\Http\Response
      */
-    public function store(Request $request)
+    public function store(AuthorRequest $request)
     {
-        //
+        $author = Author::create([
+            'user_id' =>$request->get('author_id'),
+            'status' =>$request->get('status')
+        ]);
+        if ($author){
+            return  redirect()->route('author.index')->with('success','Successfully Author Created');
+        }
+        else{
+            return  redirect()->back()->with('error','Cannot Insert Data');
+        }
     }
 
     /**
@@ -57,7 +81,11 @@ class AuthorController extends Controller
      */
     public function edit($id)
     {
-        //
+        $author=Author::find($id);
+        $users = User::whereHas('roles', function ($query) {
+            $query->where('name', 'editor');
+        })->get();
+        return view('pages.author.edit-author',compact('author','users'));
     }
 
     /**
@@ -65,11 +93,20 @@ class AuthorController extends Controller
      *
      * @param  \Illuminate\Http\Request  $request
      * @param  int  $id
-     * @return \Illuminate\Http\Response
+     * @return \Illuminate\Http\RedirectResponse
      */
-    public function update(Request $request, $id)
+    public function update(AuthorRequest $request, $id)
     {
-        //
+        $author =Author::where('id',$id)->update([
+            'user_id' =>$request->get('author_id'),
+            'status' => $request->get('status'),
+        ]);
+        if ($author){
+            return  redirect()->route('author.index')->with('success','successfully updated authors');
+        }
+        else{
+            return  redirect()->back()->with('error','cannot update the author');
+        }
     }
 
     /**

@@ -13,7 +13,7 @@ class NewsRequest extends FormRequest
      */
     public function authorize()
     {
-        return false;
+        return true;
     }
 
     /**
@@ -24,9 +24,9 @@ class NewsRequest extends FormRequest
     public function rules()
     {
         return [
-            'title' => 'required|string',
+            'news_title' => 'required|string',
             'content' =>'required|string',
-            'image_url' =>'required|image',
+
             'author_id' => 'required',
             'news_category' =>'required'
         ];

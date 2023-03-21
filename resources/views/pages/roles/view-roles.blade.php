@@ -30,11 +30,11 @@
     <div class="bg-body-light">
         <div class="content content-full">
             <div class="d-flex flex-column flex-sm-row justify-content-sm-between align-items-sm-center">
-                <h1 class="flex-grow-1 fs-3 fw-semibold my-2 my-sm-3">News Category </h1>
+                <h1 class="flex-grow-1 fs-3 fw-semibold my-2 my-sm-3"> View Roles</h1>
                 <nav class="flex-shrink-0 my-2 my-sm-0 ms-sm-3" aria-label="breadcrumb">
                     <ol class="breadcrumb">
-                        <li class="breadcrumb-item">View News Category</li>
-                        <li class="breadcrumb-item active" aria-current="page">News Category</li>
+                        <li class="breadcrumb-item"> Edit</li>
+                        <li class="breadcrumb-item active" aria-current="page">Roles</li>
                     </ol>
                 </nav>
             </div>
@@ -47,46 +47,43 @@
         <!-- Dynamic Table Full -->
         <div class="block block-rounded">
             <div class="block-header block-header-default">
-                <h3 class="block-title">View All News Category
+                <h3 class="block-title">View Roles
             </div>
             <div class="block-content block-content-full">
+                @if(session()->has('errors'))
+                    <div class="alert alert-danger">
+                        {{ session('errors') }}
+                    </div>
+                @endif
                 <!-- DataTables init on table by adding .js-dataTable-full class, functionality is initialized in js/pages/tables_datatables.js -->
                 <table class="table table-bordered table-striped table-vcenter js-dataTable-full">
                     <thead>
                     <tr>
                         <th class="text-center" style="width: 80px;">#</th>
-                        <th>Category Name</th>
-                        <th class="d-none d-sm-table-cell" style="width: 30%;">Description</th>
-                        <th style="width: 15%;">Status</th>
+                        <th>Roles Name</th>
+                        <th class="d-none d-sm-table-cell" style="width: 30%;">Guard Name</th>
                         <th>Action</th>
                     </tr>
                     </thead>
                     <tbody>
-                      @foreach($category as $newCategory)
+                    @foreach($roles as $newRoles)
                         <tr>
-                            <td class="text-center">{{$newCategory->id}}</td>
+                            <td class="text-center">{{$newRoles->id}}</td>
                             <td class="fw-semibold">
-                                <a href="javascript:void(0)">{{$newCategory->category_name}}</a>
+                                <a href="javascript:void(0)">{{$newRoles->name}}</a>
                             </td>
-                            <td class="d-none d-sm-table-cell">
-                              {{$newCategory->description}}
-                            </td>
-                            <td class="text-muted">
-                                @if($newCategory->status  == 1)
-                                    <span class="btn-alt-primary">Active</span>
-                                @else
-                                    <span class="text-bg-danger">Deactivated</span>
-                                @endif
+                            <td class="fw-semibold">
+                                <a href="javascript:void(0)">{{$newRoles->guard_name}}</a>
                             </td>
                             <td class="text-muted">
-                                <a href="{{route('news-category.edit',$newCategory->id)}}" class="btn btn-primary">Edit </a>
-                                <form action="{{route('news-category.destroy',$newCategory->id)}}" method="DELETE">
+                                <a href="{{route('roles.edit',$newRoles->id)}}" class="btn btn-primary">Edit </a>
+                                <form action="{{route('roles.destroy',$newRoles->id)}}" method="DELETE">
                                     @method('DELETE')
                                     <button class="btn btn-danger">Delete</button>
                                 </form>
                             </td>
                         </tr>
-                      @endforeach
+                    @endforeach
                     </tbody>
                 </table>
             </div>

@@ -8,9 +8,10 @@ class ImageService
 {
     public function uploadImage($request ,$fileName,$uploadPath,) {
         try{
-            $fileData = $request->get($fileName);
-            $newFileName = time() . '_' . uniqid() . '.' . $fileData->getClientOriginalExtension();
-            $path = $fileData->store('public');
+            $fileData = $request->file($fileName);
+
+            //$newFileName = time() . '_' . uniqid() . '.' . $fileData->getClientOriginalExtension();
+            $path = $fileData->store('public/'.$uploadPath);
             $optimizerChain = OptimizerChainFactory::create();
             $optimizerChain->optimize(storage_path('app/' . $path));
             $imageUrl = asset($uploadPath . $path);

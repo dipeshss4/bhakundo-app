@@ -13,21 +13,28 @@ class NewsService
     }
 
     public  function    addNews($request){
-        try {
+
         return News::create([
-             'title' =>$request->get('title'),
+             'title' =>$request->get('news_title'),
              'content' =>$request->get('content'),
-             'image_url' =>$this->imageService->uploadImage($request,'image_url','/news'),
+             'image_url' =>$this->imageService->uploadImage($request,'image','/news'),
              'video_url' =>$request->get('video_url'),
+             'author_id' =>$request->get('author_id'),
+             'news_category_id' =>$request->get('news_category'),
              'score'    =>$request->get('score')
          ]);
-        }
-        catch (\Exception $exception){
-            return $exception->getMessage();
-        }
+
+
     }
     public  function  getAllNews(){
-        return News::all();
+        return News::with(['author.user', 'category'])
+            ->whereHas('author.user', function($query) {
+                $query->whereHas('roles', function($query) {
+                    $query->where('name', 'editor');
+                });
+            })
+            ->get();
+
 
     }
     public function  editNews($id){

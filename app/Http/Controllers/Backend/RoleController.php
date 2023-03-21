@@ -3,29 +3,21 @@
 namespace App\Http\Controllers\Backend;
 
 use App\Http\Controllers\Controller;
-use App\Http\Requests\NewsCategoryRequest;
-use App\Http\service\NewsCategoryService;
+use App\Http\Requests\RoleRequest;
 use Illuminate\Http\Request;
+use Spatie\Permission\Models\Role;
 
-class NewsCategoryController extends Controller
+class RoleController extends Controller
 {
     /**
      * Display a listing of the resource.
      *
      * @return \Illuminate\Http\Response
      */
-    private $newsCategoryService;
-
-    public function __construct(NewsCategoryService $newsCategoryService)
-    {
-        $this->newsCategoryService=$newsCategoryService;
-    }
-
     public function index()
     {
-       $category = $this->newsCategoryService->getAllNewsCategory();
-
-       return view('pages.newscategory.index-newscategory',compact('category'));
+        $roles = Role::all();
+        return  view('pages.roles.view-roles',compact('roles'));
     }
 
     /**
@@ -35,26 +27,27 @@ class NewsCategoryController extends Controller
      */
     public function create()
     {
-        return  view("pages.newscategory.create-newscategory");
+        return  view('pages.roles.create-roles');
     }
 
     /**
      * Store a newly created resource in storage.
      *
      * @param  \Illuminate\Http\Request  $request
-     * @return \Illuminate\Http\Response
+     * @return \Illuminate\Http\RedirectResponse
      */
-    public function store(NewsCategoryRequest $request)
+    public function store(RoleRequest $request)
     {
-      $newsCategory = $this->newsCategoryService->addNewsCategory($request);
-      if ($newsCategory){
-         return redirect()->route('news-category.index')->with('success','Data Successfully Inserted');
-      }
-      else{
-          return  redirect()->route('news-category.create')->with('error','Data Cannot be Inserted');
-      }
-
-
+        $roles = Role::create([
+            'name' => $request->get('role_name'),
+            'guard_name' => $request->get('guard_name'),
+        ]);
+        if ($roles){
+            return  redirect()->route('roles.index')->with('success','Successfully Data Inserted');
+        }
+        else{
+            return  redirect()->route('roles.store')->with('error','Cannot Insert Data');
+        }
     }
 
     /**
@@ -76,10 +69,8 @@ class NewsCategoryController extends Controller
      */
     public function edit($id)
     {
-      $editedCategory=  $this->newsCategoryService->getNewsCategory($id);
-      return  view('pages.newscategory.edit-newscategory',compact('editedCategory'));
-
-
+        $roles_id =Role::findById($id);
+        return  view('pages.roles.edit-roles',compact('roles_id'));
     }
 
     /**
@@ -87,10 +78,17 @@ class NewsCategoryController extends Controller
      *
      * @param  \Illuminate\Http\Request  $request
      * @param  int  $id
-     * @return \Illuminate\Http\Response
+     * @return \Illuminate\Http\RedirectResponse
      */
     public function update(Request $request, $id)
     {
+            $role_update= Role::where('id',$id)->update([
+              'name' => $request->get('role_name'),
+                'guard_name' => $request->get('guard_name')
+            ]);
+            if ($role_update){
+                return  redirect()->route('roles.index')->with('success','Successfully Updated the Data');
+            }
 
     }
 
@@ -104,4 +102,5 @@ class NewsCategoryController extends Controller
     {
         //
     }
+
 }

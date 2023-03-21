@@ -25,7 +25,16 @@ Route::view('/pages/blank', 'pages.blank');
 
 
 Auth::routes();
-Route::resource('news-category',\App\Http\Controllers\Backend\NewsCategoryController::class);
+
+Route::middleware(['auth', 'role:admin'])->group(function () {
+    Route::resource('news',\App\Http\Controllers\Backend\NewsController::class);
+    Route::resource('author',\App\Http\Controllers\Backend\AuthorController::class);
+    Route::resource('users',\App\Http\Controllers\Backend\UserController::class);
+    Route::resource('roles',\App\Http\Controllers\Backend\RoleController::class);
+    Route::resource('news-category',\App\Http\Controllers\Backend\NewsCategoryController::class);
+
+});
+
+;
 Route::get('/home', [App\Http\Controllers\HomeController::class, 'index'])->name('home');
-Route::resource('news',\App\Http\Controllers\Backend\NewsController::class);
-Route::resource('author',\App\Http\Controllers\Backend\AuthorController::class);
+

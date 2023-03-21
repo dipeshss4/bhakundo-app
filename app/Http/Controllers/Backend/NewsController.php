@@ -3,6 +3,8 @@
 namespace App\Http\Controllers\Backend;
 
 use App\Http\Controllers\Controller;
+use App\Http\Requests\NewsRequest;
+use App\Http\service\NewsService;
 use App\Models\Author;
 use App\Models\News_Category;
 use Illuminate\Http\Request;
@@ -14,9 +16,16 @@ class NewsController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
+    protected  $newService;
+    public function __construct(NewsService $newService)
+    {
+        $this->newService=$newService;
+    }
+
     public function index()
     {
-        //
+        $news=$this->newService->getAllNews();
+        return view('pages.news.index-news',compact('news'));
     }
 
     /**
@@ -26,20 +35,30 @@ class NewsController extends Controller
      */
     public function create()
     {
-        $authors = Author::where('status',1)->get();
-        //$newsCategory= News_Category::where('status',1)->get();
-        return  view('pages.news.create-news',compact('authors'));
+        $authors =   Author::with('user')->whereHas('user', function($query) {
+            $query->whereHas('roles', function($query) {
+                $query->where('name', 'editor');
+            });
+        })->where('status',1)->get();
+        $newsCategory= News_Category::where('status',1)->get();
+        return  view('pages.news.create-news',compact('authors','newsCategory'));
     }
 
     /**
      * Store a newly created resource in storage.
      *
      * @param  \Illuminate\Http\Request  $request
-     * @return \Illuminate\Http\Response
+     * @return \Illuminate\Http\RedirectResponse
      */
-    public function store(Request $request)
+    public function store(NewsRequest $request)
     {
-        //
+      $news = $this->newService->addNews($request);
+      if ($news){
+          return redirect()->route('news.index')->with('success','News Successfully Created');
+      }
+      else{
+          return redirect()->back()->with('error','Cannot Create News');
+      }
     }
 
     /**

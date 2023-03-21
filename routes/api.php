@@ -17,3 +17,6 @@ use Illuminate\Support\Facades\Route;
 Route::middleware('auth:sanctum')->get('/user', function (Request $request) {
     return $request->user();
 });
+
+Route::post('uploadNewsImage',[\App\Http\Controllers\Backend\ImageController::class,'uploadImage']);
+Route::get('getAllNews',[\App\Http\Controllers\FrontendNewsController::class,'getAllNews']);

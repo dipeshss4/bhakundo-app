@@ -13,11 +13,11 @@
     <div class="bg-body-light">
         <div class="content content-full">
             <div class="d-flex flex-column flex-sm-row justify-content-sm-between align-items-sm-center">
-                <h1 class="flex-grow-1 fs-3 fw-semibold my-2 my-sm-3">Create Author</h1>
+                <h1 class="flex-grow-1 fs-3 fw-semibold my-2 my-sm-3">Create Roles</h1>
                 <nav class="flex-shrink-0 my-2 my-sm-0 ms-sm-3" aria-label="breadcrumb">
                     <ol class="breadcrumb">
-                        <li class="breadcrumb-item">Author</li>
-                        <li class="breadcrumb-item active" aria-current="page">Create</li>
+                        <li class="breadcrumb-item">Examples</li>
+                        <li class="breadcrumb-item active" aria-current="page">Blank</li>
                     </ol>
                 </nav>
             </div>
@@ -31,22 +31,31 @@
         <div class="block block-rounded">
             <div class="block-header block-header-default">
                 <h3 class="block-title">
-                    Author
+                    Create Role
                 </h3>
             </div>
             <div class="block-content">
                 <div class="row push">
                     <div class="col-lg-8">
-                        <form action="{{route('author.store')}}" method = "POST" enctype="multipart/form-data">
+                        <form action="{{route('roles.store')}}" method = "POST" enctype="multipart/form-data">
                             @csrf
+
                             <div class="mb-4">
-                                <label class="form-label" for="author">Users</label>
-                                <select class="form-select" id="example-select" name="author_id">
-                                    @foreach($users as $newUsers)
-                                        <option value="{{$newUsers->id}}">{{$newUsers->email}}</option>
-                                    @endforeach
-                                </select>
+                                <label class="form-label" for="val-role_name">Create Role <span class="text-danger">*</span></label>
+                                <input type="text" class="form-control" id="val-role_name" name="role_name" placeholder="Role">
+                                @error('role_name')
+                                <div class="alert alert-danger">{{ $message }}</div>
+                                @enderror
                             </div>
+
+                            <div class="mb-4">
+                                <label class="form-label" for="val-guard_name">Guard Name <span class="text-danger">*</span></label>
+                                <input type="text" class="form-control" id="val-guard_name" name="guard_name" placeholder="Guard name ">
+                                @error('guard_name')
+                                <div class="alert alert-danger">{{ $message }}</div>
+                                @enderror
+                            </div>
+
                             <div class="mb-4">
                                 <label class="form-label">Status</label>
                                 <div class="space-y-2">

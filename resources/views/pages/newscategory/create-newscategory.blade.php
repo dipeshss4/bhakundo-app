@@ -37,38 +37,51 @@
             <div class="block-content">
                 <div class="row push">
                     <div class="col-lg-8">
-                        <form>
+                        <form action="{{route('news-category.store')}}" method = "POST" enctype="multipart/form-data">
+                            @csrf
+
                         <div class="mb-4">
                             <label class="form-label" for="example-text-input">Category Name <span class="text-danger">*</span></label>
-                            <input type="text" class="form-control" id="val-categoryName" name="example-text-input" placeholder="Category Name">
+                            <input type="text" class="form-control" id="val-categoryName" name="category_name" placeholder="Category Name">
+                            @error('category_name')
+                            <div class="alert alert-danger">{{ $message }}</div>
+                            @enderror
                         </div>
                         <div class="mb-4">
                             <label class="form-label" for="example-text-input">Description </label>
-                            <div id="js-ckeditor5-classic"></div>
+                            <textarea name="description" id="js-ckeditor5-classic"></textarea>
+
                         </div>
+                            <div class="mb-4">
+                                <label class="form-label" for="example-file-input">category Image</label>
+                                <input class="form-control" type="file" id="example-file-input" name="image">
+                            </div>
                         <div class="mb-4">
                             <label class="form-label">Status</label>
                             <div class="space-y-2">
                                 <div class="form-check">
-                                    <input class="form-check-input" type="radio" id="example-radios-default1" name="example-radios-default" value="1" checked="">
+                                    <input class="form-check-input" type="radio" id="example-radios-default1" name="status" value="1" checked="">
                                     <label class="form-check-label" for="example-radios-default1">Active</label>
                                 </div>
                                 <div class="form-check">
-                                    <input class="form-check-input" type="radio" id="example-radios-default2" name="example-radios-default" value="0">
+                                    <input class="form-check-input" type="radio" id="example-radios-default2" name="status" value="0">
                                     <label class="form-check-label" for="example-radios-default2">Deactivated</label>
                                 </div>
                             </div>
                         </div>
                             <button type="submit" class="btn btn-primary">Submit</button>
                         </form>
+
                     </div>
                 </div>
             </div>
         </div>
         <!-- END Your Block -->
     </div>
+
     <!-- END Page Content -->
 
 
 @endsection
+
 

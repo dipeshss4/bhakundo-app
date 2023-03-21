@@ -9,7 +9,7 @@
 
   <meta name="description" content="Bhakundo Admin ">
   <meta name="author" content="dipesh">
-
+    <meta name="csrf-token" content="{{ csrf_token() }}">
 
   <!-- Icons -->
   <link rel="shortcut icon" href="{{ asset('media/favicons/favicon.png') }}">
@@ -331,18 +331,51 @@
                   </a>
                   <ul class="nav-main-submenu">
                       <li class="nav-main-item">
-                          <a class="nav-main-link{{ request()->is('pages/datatables') ? ' active' : '' }}" href="{{route('news.create')}}">
+                          <a class="nav-main-link{{ request()->is('pages/datatables') ? ' active' : '' }}" href="{{route('author.create')}}">
                               <span class="nav-main-link-name">Create Author</span>
                           </a>
                       </li>
                       <li class="nav-main-item">
-                          <a class="nav-main-link{{ request()->is('pages/slick') ? ' active' : '' }}" href="{{route('news.index')}}">
+                          <a class="nav-main-link{{ request()->is('pages/slick') ? ' active' : '' }}" href="{{route('author.index')}}">
                               <span class="nav-main-link-name">View Author </span>
                           </a>
                       </li>
+                  </ul>
+              </li>
+              <li class="nav-main-heading">User</li>
+              <li class="nav-main-item{{ request()->is('user/*') ? ' open' : '' }}">
+                  <a class="nav-main-link nav-main-link-submenu" data-toggle="submenu" aria-haspopup="true" aria-expanded="true" href="#">
+                      <i class="nav-main-link-icon fa fa-lightbulb"></i>
+                      <span class="nav-main-link-name">User</span>
+                  </a>
+                  <ul class="nav-main-submenu">
                       <li class="nav-main-item">
-                          <a class="nav-main-link{{ request()->is('pages/blank') ? ' active' : '' }}" href="/pages/blank">
-                              <span class="nav-main-link-name">Blank</span>
+                          <a class="nav-main-link{{ request()->is('User/create') ? ' active' : '' }}" href="{{route('users.create')}}">
+                              <span class="nav-main-link-name">Create User</span>
+                          </a>
+                      </li>
+                      <li class="nav-main-item">
+                          <a class="nav-main-link{{ request()->is('pages/slick') ? ' active' : '' }}" href="{{route('users.index')}}">
+                              <span class="nav-main-link-name">View Users </span>
+                          </a>
+                      </li>
+                  </ul>
+              </li>
+              <li class="nav-main-heading">Role</li>
+              <li class="nav-main-item{{ request()->is('user/*') ? ' open' : '' }}">
+                  <a class="nav-main-link nav-main-link-submenu" data-toggle="submenu" aria-haspopup="true" aria-expanded="true" href="#">
+                      <i class="nav-main-link-icon fa fa-lightbulb"></i>
+                      <span class="nav-main-link-name">Roles</span>
+                  </a>
+                  <ul class="nav-main-submenu">
+                      <li class="nav-main-item">
+                          <a class="nav-main-link{{ request()->is('roles/create') ? ' active' : '' }}" href="{{route('roles.create')}}">
+                              <span class="nav-main-link-name">Create Roles</span>
+                          </a>
+                      </li>
+                      <li class="nav-main-item">
+                          <a class="nav-main-link{{ request()->is('roles/index') ? ' active' : '' }}" href="{{route('roles.index')}}">
+                              <span class="nav-main-link-name">View Roles </span>
                           </a>
                       </li>
                   </ul>

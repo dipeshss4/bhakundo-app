@@ -18,7 +18,7 @@ class NewsCategoryService
         return   News_Category::create([
                'category_name' => $request->get('category_name'),
                'description'  => $request->get('description'),
-               'image_url'   => $this->imageService->uploadImage($request,'categoryImage','newsCategory'),
+               'image_url'   => $this->imageService->uploadImage($request,'image','newsCategory'),
                'status'     => $request->get('status'),
 
            ]);
@@ -29,7 +29,7 @@ class NewsCategoryService
    }
 
    public  function  getAllNewsCategory(){
-       return News_Category::OrderBy('created_at','DESC')->first();
+       return News_Category::OrderBy('created_at','DESC')->get();
    }
    public  function getNewsCategory($id){
         return News_Category::find($id);
