@@ -21,7 +21,11 @@ class NewsService
              'video_url' =>$request->get('video_url'),
              'author_id' =>$request->get('author_id'),
              'news_category_id' =>$request->get('news_category'),
-             'score'    =>$request->get('score')
+             'score'    =>$request->get('score'),
+             'status'  =>$request->get('status'),
+             'is_trending' =>$request->get('is_trending'),
+             'featured'  =>$request->get('is_featured'),
+             'recommend' =>$request->get('is_recommended')
          ]);
 
 
@@ -40,8 +44,20 @@ class NewsService
     public function  editNews($id){
         return News::find($id);
     }
-    public function update(){
-
+    public function update($request,$id){
+      return News::Where('id',$id)->update([
+          'title' =>$request->get('news_title'),
+          'content' =>$request->get('content'),
+          'image_url' =>$this->imageService->updateImage(News::find($id),'image','/newsImage',$request),
+          'video_url' =>$request->get('video_url'),
+          'author_id' =>$request->get('author_id'),
+          'news_category_id' =>$request->get('news_category'),
+          'score'    =>0,
+          'status'  =>$request->get('status'),
+          'is_trending' =>$request->get('is_trending'),
+          'featured'  =>$request->get('is_featured'),
+          'recommend' =>$request->get('is_recommended')
+      ]);
     }
 
 }

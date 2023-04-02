@@ -77,7 +77,7 @@
                                 <a href="#" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#newsModal{{ $newNews->id }}">View</a>
                             </td>
                             <td class="d-none d-sm-table-cell">
-
+                                <img src="{{ asset($newNews->image_url) }}" class="img-thumbnail">
                             </td>
                             <td class="d-none d-sm-table-cell">
                                 {{$newNews->video_url}}

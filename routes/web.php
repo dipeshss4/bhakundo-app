@@ -32,6 +32,10 @@ Route::middleware(['auth', 'role:admin'])->group(function () {
     Route::resource('users',\App\Http\Controllers\Backend\UserController::class);
     Route::resource('roles',\App\Http\Controllers\Backend\RoleController::class);
     Route::resource('news-category',\App\Http\Controllers\Backend\NewsCategoryController::class);
+    Route::resource('leauge',\App\Http\Controllers\Backend\LeaugeController::class);
+    Route::resource('players',\App\Http\Controllers\Backend\PlayerController::class);
+    Route::resource('teams',\App\Http\Controllers\Backend\TeamsController::class);
+
 
 });
 

@@ -80,7 +80,14 @@ class NewsController extends Controller
      */
     public function edit($id)
     {
-        //
+        $newsEdit = $this->newService->editNews($id);
+        $authors =   Author::with('user')->whereHas('user', function($query) {
+            $query->whereHas('roles', function($query) {
+                $query->where('name', 'editor');
+            });
+        })->where('status',1)->get();
+        $newsCategory= News_Category::where('status',1)->get();
+        return  view('pages.news.edit-news',compact('newsEdit','authors','newsCategory'));
     }
 
     /**
@@ -92,7 +99,7 @@ class NewsController extends Controller
      */
     public function update(Request $request, $id)
     {
-        //
+        $this->newService->update($request,$id);
     }
 
     /**

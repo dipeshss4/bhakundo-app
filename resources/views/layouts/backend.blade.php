@@ -12,10 +12,9 @@
     <meta name="csrf-token" content="{{ csrf_token() }}">
 
   <!-- Icons -->
-  <link rel="shortcut icon" href="{{ asset('media/favicons/favicon.png') }}">
-  <link rel="icon" sizes="192x192" type="image/png" href="{{ asset('media/favicons/favicon-192x192.png') }}">
-  <link rel="apple-touch-icon" sizes="180x180" href="{{ asset('media/favicons/apple-touch-icon-180x180.png') }}">
-
+  <link rel="shortcut icon" href="{{ asset('media/favicons/favicon.png') }}">  <div>
+        <img src="" alt="Old Image" style="max-width: 200px; max-height: 200px;">
+    </div>
   <!-- Modules -->
   @yield('css')
   @vite(['resources/sass/main.scss', 'resources/js/dashmix/app.js'])
@@ -376,6 +375,63 @@
                       <li class="nav-main-item">
                           <a class="nav-main-link{{ request()->is('roles/index') ? ' active' : '' }}" href="{{route('roles.index')}}">
                               <span class="nav-main-link-name">View Roles </span>
+                          </a>
+                      </li>
+                  </ul>
+              </li>
+              <li class="nav-main-heading">League</li>
+              <li class="nav-main-item{{ request()->is('user/*') ? ' open' : '' }}">
+                  <a class="nav-main-link nav-main-link-submenu" data-toggle="submenu" aria-haspopup="true" aria-expanded="true" href="#">
+                      <i class="nav-main-link-icon fa fa-lightbulb"></i>
+                      <span class="nav-main-link-name">Leauge</span>
+                  </a>
+                  <ul class="nav-main-submenu">
+                      <li class="nav-main-item">
+                          <a class="nav-main-link{{ request()->is('leauge/create') ? ' active' : '' }}" href="{{route('leauge.create')}}">
+                              <span class="nav-main-link-name">Create League</span>
+                          </a>
+                      </li>
+                      <li class="nav-main-item">
+                          <a class="nav-main-link{{ request()->is('leauge/index') ? ' active' : '' }}" href="{{route('leauge.index')}}">
+                              <span class="nav-main-link-name"> View League </span>
+                          </a>
+                      </li>
+                  </ul>
+              </li>
+              <li class="nav-main-heading">Teams</li>
+              <li class="nav-main-item{{ request()->is('teams/*') ? ' open' : '' }}">
+                  <a class="nav-main-link nav-main-link-submenu" data-toggle="submenu" aria-haspopup="true" aria-expanded="true" href="#">
+                      <i class="nav-main-link-icon fa fa-lightbulb"></i>
+                      <span class="nav-main-link-name">Teams</span>
+                  </a>
+                  <ul class="nav-main-submenu">
+                      <li class="nav-main-item">
+                          <a class="nav-main-link{{ request()->is('teams/create') ? ' active' : '' }}" href="{{route('teams.create')}}">
+                              <span class="nav-main-link-name">Create Teams</span>
+                          </a>
+                      </li>
+                      <li class="nav-main-item">
+                          <a class="nav-main-link{{ request()->is('teams/index') ? ' active' : '' }}" href="{{route('teams.index')}}">
+                              <span class="nav-main-link-name"> View Teams </span>
+                          </a>
+                      </li>
+                  </ul>
+              </li>
+              <li class="nav-main-heading">Player</li>
+              <li class="nav-main-item{{ request()->is('teams/*') ? ' open' : '' }}">
+                  <a class="nav-main-link nav-main-link-submenu" data-toggle="submenu" aria-haspopup="true" aria-expanded="true" href="#">
+                      <i class="nav-main-link-icon fa fa-lightbulb"></i>
+                      <span class="nav-main-link-name">Players</span>
+                  </a>
+                  <ul class="nav-main-submenu">
+                      <li class="nav-main-item">
+                          <a class="nav-main-link{{ request()->is('teams/create') ? ' active' : '' }}" href="{{route('players.create')}}">
+                              <span class="nav-main-link-name">Create Player</span>
+                          </a>
+                      </li>
+                      <li class="nav-main-item">
+                          <a class="nav-main-link{{ request()->is('teams/index') ? ' active' : '' }}" href="{{route('players.index')}}">
+                              <span class="nav-main-link-name"> View Players </span>
                           </a>
                       </li>
                   </ul>

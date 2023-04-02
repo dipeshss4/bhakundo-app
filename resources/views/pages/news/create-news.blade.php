@@ -99,11 +99,11 @@
                                 <label class="form-label">Is Trending</label>
                                 <div class="space-y-2">
                                     <div class="form-check">
-                                        <input class="form-check-input" type="radio" id="example-radios-default1" name="example-radios-default" value="1" checked="">
+                                        <input class="form-check-input" type="radio" id="example-radios-default1" name="is_trending" value="1" checked="">
                                         <label class="form-check-label" for="example-radios-default1">Active</label>
                                     </div>
                                     <div class="form-check">
-                                        <input class="form-check-input" type="radio" id="example-radios-default2" name="example-radios-default" value="0">
+                                        <input class="form-check-input" type="radio" id="example-radios-default2" name="is_trending" value="0">
                                         <label class="form-check-label" for="example-radios-default2">Deactivated</label>
                                     </div>
                                 </div>
@@ -112,11 +112,11 @@
                                 <label class="form-label">Featured News</label>
                                 <div class="space-y-2">
                                     <div class="form-check">
-                                        <input class="form-check-input" type="radio" id="example-radios-default1" name="example-radios-default" value="1" checked="">
+                                        <input class="form-check-input" type="radio" id="example-radios-default1" name="is_featured" value="1" checked="">
                                         <label class="form-check-label" for="example-radios-default1">Active</label>
                                     </div>
                                     <div class="form-check">
-                                        <input class="form-check-input" type="radio" id="example-radios-default2" name="example-radios-default" value="0">
+                                        <input class="form-check-input" type="radio" id="example-radios-default2" name="is_featured" value="0">
                                         <label class="form-check-label" for="example-radios-default2">Deactivated</label>
                                     </div>
                                 </div>
@@ -125,11 +125,11 @@
                                 <label class="form-label">Recommended News</label>
                                 <div class="space-y-2">
                                     <div class="form-check">
-                                        <input class="form-check-input" type="radio" id="example-radios-default1" name="example-radios-default" value="1" checked="">
+                                        <input class="form-check-input" type="radio" id="example-radios-default1" name="is_recommended" value="1" checked="">
                                         <label class="form-check-label" for="example-radios-default1">Active</label>
                                     </div>
                                     <div class="form-check">
-                                        <input class="form-check-input" type="radio" id="example-radios-default2" name="example-radios-default" value="0">
+                                        <input class="form-check-input" type="radio" id="example-radios-default2" name="is_recommended" value="0">
                                         <label class="form-check-label" for="example-radios-default2">Deactivated</label>
                                     </div>
                                 </div>
@@ -138,11 +138,11 @@
                                 <label class="form-label">Status</label>
                                 <div class="space-y-2">
                                     <div class="form-check">
-                                        <input class="form-check-input" type="radio" id="example-radios-default1" name="example-radios-default" value="1" checked="">
+                                        <input class="form-check-input" type="radio" id="example-radios-default1" name="status" value="1" checked="">
                                         <label class="form-check-label" for="example-radios-default1">Active</label>
                                     </div>
                                     <div class="form-check">
-                                        <input class="form-check-input" type="radio" id="example-radios-default2" name="example-radios-default" value="0">
+                                        <input class="form-check-input" type="radio" id="example-radios-default2" name="status" value="0">
                                         <label class="form-check-label" for="example-radios-default2">Deactivated</label>
                                     </div>
                                 </div>

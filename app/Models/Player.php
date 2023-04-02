@@ -8,7 +8,7 @@ use Illuminate\Database\Eloquent\Model;
 class Player extends Model
 {
     use HasFactory;
-    protected $fillable = ['player_name','country','position','date_of_birth','status','team_id'];
+    protected $fillable = ['player_name','country','position','date_of_birth','status','team_id','player_image'];
     public function team()
     {
         return $this->belongsTo(Team::class);

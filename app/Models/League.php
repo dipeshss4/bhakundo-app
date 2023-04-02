@@ -8,7 +8,7 @@ use Illuminate\Database\Eloquent\Model;
 class League extends Model
 {
     use HasFactory;
-    protected $fillable = ['name', 'country','year','format','logo','status'];
+    protected $fillable = ['name', 'country','start_year','year_ending','format','logo','status'];
     public function teams()
     {
         return $this->hasMany(Team::class);

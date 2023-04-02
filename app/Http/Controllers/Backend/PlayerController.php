@@ -3,7 +3,14 @@
 namespace App\Http\Controllers\Backend;
 
 use App\Http\Controllers\Controller;
+use App\Http\Requests\PlayerRequest;
+use App\Http\service\PlayerService;
+use App\Models\Player;
+use App\Models\Team;
 use Illuminate\Http\Request;
+use Illuminate\Session\Store;
+use Illuminate\Support\Facades\Storage;
+use Illuminate\Support\Facades\URL;
 
 class PlayerController extends Controller
 {
@@ -12,30 +19,45 @@ class PlayerController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
+    protected  $playerService;
+    public function __construct(PlayerService $playerService)
+    {
+        $this->playerService=$playerService;
+    }
+
     public function index()
     {
-        //
+
     }
 
     /**
      * Show the form for creating a new resource.
      *
-     * @return \Illuminate\Http\Response
+     * @return \Illuminate\Contracts\Foundation\Application|\Illuminate\Contracts\View\Factory|\Illuminate\Contracts\View\View
      */
     public function create()
     {
-        //
+        $teams =Team::where('status',1)->get();
+        $jsonString = Storage::get('countries.json');
+        $country =  json_decode($jsonString,false);
+        return  view('pages.player.create-player',compact('teams','country'));
     }
 
     /**
      * Store a newly created resource in storage.
      *
      * @param  \Illuminate\Http\Request  $request
-     * @return \Illuminate\Http\Response
+     * @return \Illuminate\Http\RedirectResponse
      */
-    public function store(Request $request)
+    public function store(PlayerRequest $request)
     {
-        //
+      $storePlayer = $this->playerService->storePlayer($request);
+      if ($storePlayer){
+          return  redirect()->route('players.index')->with('success','Successfully Player Created');
+      }
+      else{
+          return  redirect()->back()->with('error','Cannot Create Player ');
+      }
     }
 
     /**
@@ -53,11 +75,12 @@ class PlayerController extends Controller
      * Show the form for editing the specified resource.
      *
      * @param  int  $id
-     * @return \Illuminate\Http\Response
+     * @return \Illuminate\Contracts\Foundation\Application|\Illuminate\Contracts\View\Factory|\Illuminate\Contracts\View\View
      */
     public function edit($id)
     {
-        //
+       $player= Player::find($id);
+       return  view('pages.player.edit-player');
     }
 
     /**
@@ -65,11 +88,17 @@ class PlayerController extends Controller
      *
      * @param  \Illuminate\Http\Request  $request
      * @param  int  $id
-     * @return \Illuminate\Http\Response
+     * @return \Illuminate\Http\RedirectResponse
      */
-    public function update(Request $request, $id)
+    public function update(PlayerRequest $request, $id)
     {
-        //
+        $updatePlayer = $this->playerService->updatePlayer($request,$id);
+        if ($updatePlayer){
+            return  redirect()->route('players.index')->with('success','successfully Updated');
+        }
+        else{
+            return  redirect()->back()->with('error','cannot update');
+        }
     }
 
     /**
