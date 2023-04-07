@@ -436,6 +436,25 @@
                       </li>
                   </ul>
               </li>
+              <li class="nav-main-heading">Matches</li>
+              <li class="nav-main-item{{ request()->is('teams/*') ? ' open' : '' }}">
+                  <a class="nav-main-link nav-main-link-submenu" data-toggle="submenu" aria-haspopup="true" aria-expanded="true" href="#">
+                      <i class="nav-main-link-icon fa fa-lightbulb"></i>
+                      <span class="nav-main-link-name">Matches</span>
+                  </a>
+                  <ul class="nav-main-submenu">
+                      <li class="nav-main-item">
+                          <a class="nav-main-link{{ request()->is('match/create') ? ' active' : '' }}" href="{{route('match.create')}}">
+                              <span class="nav-main-link-name">Create Matches</span>
+                          </a>
+                      </li>
+                      <li class="nav-main-item">
+                          <a class="nav-main-link{{ request()->is('match/index') ? ' active' : '' }}" href="{{route('match.index')}}">
+                              <span class="nav-main-link-name"> View Matches </span>
+                          </a>
+                      </li>
+                  </ul>
+              </li>
             <li class="nav-main-heading">More</li>
             <li class="nav-main-item">
               <a class="nav-main-link" href="/">

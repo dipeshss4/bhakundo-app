@@ -3,9 +3,8 @@
 namespace App\Http\Requests;
 
 use Illuminate\Foundation\Http\FormRequest;
-use Illuminate\Support\Facades\Auth;
 
-class PlayerRequest extends FormRequest
+class MatchRequest extends FormRequest
 {
     /**
      * Determine if the user is authorized to make this request.
@@ -14,12 +13,7 @@ class PlayerRequest extends FormRequest
      */
     public function authorize()
     {
-        if (Auth::user()->hasRole('admin')){
-            return true;
-        }
-        else{
-            return  false;
-        }
+        return true;
     }
 
     /**
@@ -30,11 +24,11 @@ class PlayerRequest extends FormRequest
     public function rules()
     {
         return [
-            'player_name' =>'required|string',
-            'country' => 'required',
-            'position' =>'required|string',
-            'dob'    =>'required|date',
-            'team_id'=>'required',
+            'home_team_id' =>'required|numeric',
+            'away_team_id' =>'required|numeric',
+            'location'     =>'required|string',
+            'stadium_name' =>'required|string',
+            'match_date'  =>'required'
         ];
     }
 }

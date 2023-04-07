@@ -8,6 +8,36 @@ use Illuminate\Http\Request;
 class RestTeamController extends Controller
 {
     public  function  getAllTeams(){
-        $teams= Team::where('status',1)->get();
+        $teams= Team::with('league')->where('status',1)->get();
+        if ($teams){
+            return response()->json([
+                'success' => true,
+                'data'  =>$teams
+            ]);
+
+        }
+        else{
+            return response()->json([
+                'success' => false,
+                'data'  =>'No any Team'
+            ]);
+        }
+    }
+
+    public  function  getTeams($id){
+        $teams = Team::with('league')->where('id',$id)->get();
+        if ($teams){
+            return response()->json([
+                'success' => true,
+                'data'  =>$teams
+            ]);
+        }
+        else{
+            return response()->json([
+                'success' => false,
+                'data'  =>'No Any Teams'
+            ]);
+        }
+
     }
 }

@@ -13,10 +13,10 @@
     <div class="bg-body-light">
         <div class="content content-full">
             <div class="d-flex flex-column flex-sm-row justify-content-sm-between align-items-sm-center">
-                <h1 class="flex-grow-1 fs-3 fw-semibold my-2 my-sm-3">Create Player </h1>
+                <h1 class="flex-grow-1 fs-3 fw-semibold my-2 my-sm-3">Create Match </h1>
                 <nav class="flex-shrink-0 my-2 my-sm-0 ms-sm-3" aria-label="breadcrumb">
                     <ol class="breadcrumb">
-                        <li class="breadcrumb-item">Player</li>
+                        <li class="breadcrumb-item">Match</li>
                         <li class="breadcrumb-item active" aria-current="page">Create</li>
                     </ol>
                 </nav>
@@ -31,66 +31,74 @@
         <div class="block block-rounded">
             <div class="block-header block-header-default">
                 <h3 class="block-title">
-                    Player Name
+                    Create Match
                 </h3>
             </div>
             <div class="block-content">
                 <div class="row push">
                     <div class="col-lg-8">
-                        <form action="{{route('players.store')}}" method="POST" enctype="multipart/form-data">
+                        <form action="{{route('match.store')}}" method="POST" enctype="multipart/form-data">
                             @csrf
                             @method('POST')
                             <div class="mb-4">
-                                <label class="form-label" for="example-text-input">Player Name <span class="text-danger">*</span></label>
-                                <input type="text" class="form-control" id="val-name" name="player_name"  placeholder="Player Name">
-                                @error('name')
-                                <div class="alert alert-danger">{{ $message }}</div>
-                                @enderror
-                            </div>
-                            <div class="mb-4">
-                                <label class="form-label" for="author">Country</label>
-
-                                    <select class="form-select" id="example-select" name="country">
-                                        @foreach($country as $newCountry)
-                                        <option value="{{$newCountry->name}}">{{$newCountry->name}}</option>
-                                         @endforeach
-                                    </select>
-                                @error('country')
-                                <div class="alert alert-danger">{{ $message }}</div>
-                                @enderror
-                            </div>
-                            <div class="mb-4">
-                                <label class="form-label" for="author">Team</label>
-                                <select class="form-select" id="example-select" name="team_id">
+                                <label class="form-label" for="author">Home Team</label>
+                                <select class="form-select" id="example-select" name="home_team_id">
                                     @foreach($teams as $newTeams)
                                         <option value="{{$newTeams->id}}">{{$newTeams->name}}</option>
                                     @endforeach
                                 </select>
-                                @error('country')
+                                @error('home_team_id')
                                 <div class="alert alert-danger">{{ $message }}</div>
                                 @enderror
                             </div>
                             <div class="mb-4">
-                                <label class="form-label" for="val-date">Position <span class="text-danger">*</span></label>
-                                <input type="text" class="form-control" id="val-date" name="position"  placeholder="position">
-                                @error('start_year')
+                                <label class="form-label" for="author">Away Team</label>
+                                <select class="form-select" id="example-select" name="away_team_id">
+                                    @foreach($teams as $newTeams)
+                                        <option value="{{$newTeams->id}}">{{$newTeams->name}}</option>
+                                    @endforeach
+                                </select>
+                                @error('away_team_id')
                                 <div class="alert alert-danger">{{ $message }}</div>
                                 @enderror
                             </div>
                             <div class="mb-4">
-                                <label class="form-label" for="val-date">Date Of Birth <span class="text-danger">*</span></label>
-                                <input type="date" class="form-control" id="val-date" name="dob"  placeholder="">
-                                @error('date_of_birth')
+                                <label class="form-label" for="val-date">Home Team Score <span class="text-danger">*</span></label>
+                                <input type="number" class="form-control" id="val-date" name="home_team_score"  placeholder="Home Team Score">
+                                @error('')
                                 <div class="alert alert-danger">{{ $message }}</div>
                                 @enderror
                             </div>
                             <div class="mb-4">
-                                <label class="form-label" for="logo">Player Image</label>
-                                <input class="form-control" type="file" id="logo" name="player_image">
-                                @error('logo')
+                                <label class="form-label" for="val-date">Away Team Score <span class="text-danger">*</span></label>
+                                <input type="number" class="form-control" id="val-date" name="away_team_score"  placeholder="Away Team Score">
+                                @error('away_team_core')
                                 <div class="alert alert-danger">{{ $message }}</div>
                                 @enderror
                             </div>
+
+                            <div class="mb-4">
+                                <label class="form-label" for="val-date">Location <span class="text-danger">*</span></label>
+                                <input type="text" class="form-control" id="val-date" name="location"  placeholder="location">
+                                @error('location')
+                                <div class="alert alert-danger">{{ $message }}</div>
+                                @enderror
+                            </div>
+                            <div class="mb-4">
+                                <label class="form-label" for="val-date">Stadium <span class="text-danger">*</span></label>
+                                <input type="text" class="form-control" id="val-date" name="stadium_name"  placeholder="stadium_name">
+                                @error('stadium_name')
+                                <div class="alert alert-danger">{{ $message }}</div>
+                                @enderror
+                            </div>
+                            <div class="mb-4">
+                                <label class="form-label" for="val-date">Match Date Time<span class="text-danger">*</span></label>
+                                <input type="datetime-local" class="form-control" id="val-date" name="match_date"  placeholder="">
+                                @error('match_date')
+                                <div class="alert alert-danger">{{ $message }}</div>
+                                @enderror
+                            </div>
+
                             <div class="mb-4">
                                 <label class="form-label">Status</label>
                                 <div class="space-y-2">

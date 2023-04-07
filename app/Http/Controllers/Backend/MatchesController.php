@@ -3,6 +3,10 @@
 namespace App\Http\Controllers\Backend;
 
 use App\Http\Controllers\Controller;
+use App\Http\Requests\MatchRequest;
+use App\Http\service\MatchServices;
+use App\Models\Matche;
+use App\Models\Team;
 use Illuminate\Http\Request;
 
 class MatchesController extends Controller
@@ -12,19 +16,27 @@ class MatchesController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
+    protected $matchservices;
+    public function __construct(MatchServices $matchServices)
+    {
+        $this->matchservices=$matchServices;
+    }
+
     public function index()
     {
-        //
+        $matches = Matche::with('homeTeam','awayTeam')->get();
+        return view('pages.matches.view-match',compact('matches'));
     }
 
     /**
      * Show the form for creating a new resource.
      *
-     * @return \Illuminate\Http\Response
+     * @return \Illuminate\Contracts\Foundation\Application|\Illuminate\Contracts\View\Factory|\Illuminate\Contracts\View\View
      */
     public function create()
     {
-        //
+        $teams =Team::where('status',1)->get();
+        return  view('pages.matches.create-match',compact('teams'));
     }
 
     /**
@@ -33,9 +45,18 @@ class MatchesController extends Controller
      * @param  \Illuminate\Http\Request  $request
      * @return \Illuminate\Http\Response
      */
-    public function store(Request $request)
+    public function store(MatchRequest $request)
     {
-        //
+        $matchinsert=$this->matchservices->store($request);
+        if ($matchinsert){
+            return redirect()->route('match.index')->with('success','Match Successfully Created');
+        }
+        else{
+            return redirect()->back()->with('error','Cannot Created Match');
+        }
+
+
+
     }
 
     /**
@@ -53,11 +74,13 @@ class MatchesController extends Controller
      * Show the form for editing the specified resource.
      *
      * @param  int  $id
-     * @return \Illuminate\Http\Response
+     * @return \Illuminate\Contracts\Foundation\Application|\Illuminate\Contracts\View\Factory|\Illuminate\Contracts\View\View
      */
     public function edit($id)
     {
-        //
+        $MatchEdit=Matche::with('homeTeam','awayTeam')->find($id);
+        $teams = Team::where('status',1)->get();
+        return view('pages.matches.edit-match',compact('MatchEdit','teams'));
     }
 
     /**
@@ -69,7 +92,8 @@ class MatchesController extends Controller
      */
     public function update(Request $request, $id)
     {
-        //
+        $matchUpdate = $this->matchservices->updateMatch($request,$id);
+
     }
 
     /**

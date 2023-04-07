@@ -8,7 +8,7 @@ use Illuminate\Database\Eloquent\Model;
 class Matche extends Model
 {
     use HasFactory;
-    protected $fillable = ['home_team_id','away_team_id','home_team_score','away_team_score','stadium_name','location','status'];
+    protected $fillable = ['home_team_id','away_team_id','home_team_score','away_team_score','stadium_name','location','status','match_date_time'];
     public function league()
     {
         return $this->belongsTo(League::class);

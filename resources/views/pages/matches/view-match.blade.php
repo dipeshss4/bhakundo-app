@@ -30,11 +30,11 @@
     <div class="bg-body-light">
         <div class="content content-full">
             <div class="d-flex flex-column flex-sm-row justify-content-sm-between align-items-sm-center">
-                <h1 class="flex-grow-1 fs-3 fw-semibold my-2 my-sm-3"> View Player</h1>
+                <h1 class="flex-grow-1 fs-3 fw-semibold my-2 my-sm-3"> View Matches</h1>
                 <nav class="flex-shrink-0 my-2 my-sm-0 ms-sm-3" aria-label="breadcrumb">
                     <ol class="breadcrumb">
-                        <li class="breadcrumb-item"> Player</li>
-                        <li class="breadcrumb-item active" aria-current="page">View</li>
+                        <li class="breadcrumb-item"> View</li>
+                        <li class="breadcrumb-item active" aria-current="page">Matches</li>
                     </ol>
                 </nav>
             </div>
@@ -47,7 +47,7 @@
         <!-- Dynamic Table Full -->
         <div class="block block-rounded">
             <div class="block-header block-header-default">
-                <h3 class="block-title">View Player
+                <h3 class="block-title">View Matches
             </div>
             <div class="block-content block-content-full">
                 @if(session()->has('errors'))
@@ -60,50 +60,54 @@
                     <thead>
                     <tr>
                         <th class="text-center" style="width: 80px;">#</th>
-                        <th>Player Name</th>
-                        <th class="d-none d-sm-table-cell" style="width: 30%;">Country</th>
-                        <th class="d-none d-sm-table-cell" style="width: 30%;">Position</th>
-                        <th class="d-none d-sm-table-cell" style="width: 30%;">Date of Birth</th>
-                        <th class="d-none d-sm-table-cell" style="width: 30%;">Team Name</th>
-                        <th>Player Image</th>
+                        <th>Home Team Name</th>
+                        <th class="d-none d-sm-table-cell" style="width: 30%;">Away Team Name</th>
+                        <th class="d-none d-sm-table-cell" style="width: 30%;">Home Team Score</th>
+                        <th class="d-none d-sm-table-cell" style="width: 30%;">Away Team Score</th>
+                        <th class="d-none d-sm-table-cell" style="width: 30%;">Stadium Name</th>
+                        <th>Location</th>
+                        <th>Match Date</th>
                         <th>Status</th>
                         <th>Action</th>
                     </tr>
                     </thead>
                     <tbody>
-                    @foreach($players as $newPlayers)
+                    @foreach($matches as $newMatches)
                         <tr>
-                            <td class="text-center">{{$newPlayers->id}}</td>
+                            <td class="text-center">{{$newMatches->id}}</td>
+                            <td class="text-center">{{$newMatches->homeTeam->name}}</td>
                             <td class="fw-semibold">
-                                <a href="javascript:void(0)">{{$newPlayers->player_name}}</a>
+                                <a href="javascript:void(0)">{{$newMatches->awayTeam->name}}</a>
                             </td>
                             <td class="fw-semibold">
-                                <a href="javascript:void(0)">{{$newPlayers->Country}}</a>
+                                <a href="javascript:void(0)">{{$newMatches->home_team_score}}</a>
                             </td>
                             <td class="fw-semibold">
-                                <a href="javascript:void(0)">{{$newPlayers->position}}</a>
+                                <a href="javascript:void(0)">{{$newMatches->away_team_score}}</a>
                             </td>
                             <td class="fw-semibold">
-                                <a href="javascript:void(0)">{{$newPlayers->date_of_birth}}</a>
+                                <a href="javascript:void(0)">{{$newMatches->stadium}}</a>
                             </td>
                             <td class="fw-semibold">
-                                <a href="javascript:void(0)">{{$newPlayers->team->name}}</a>
+                                <a href="javascript:void(0)">{{$newMatches->location}}</a>
                             </td>
                             <td class="fw-semibold">
-                                <img src="{{ asset($newPlayers->player_image) }}" class="img-thumbnail">
+                                <a href="javascript:void(0)">{{$newMatches->match_date_time}}</a>
                             </td>
                             <td class="fw-semibold">
-                                @if($newPlayers->status == 1)
-                                    <span class="badge badge-primary">Active</span>
-                                @else
-                                    <span class="badge badge-primary">Deactivated</span>
+                                @if($newMatches->status == 'pending')
+                                    <span class="badge badge-primary">Pending</span>
+                                @elseif($newTeams->status == 'completed')
+                                    <span class="badge badge-primary">Completed</span>
+                                @elseif($newTeams->status == 'cancelled')
+                                    <span class="badge badge-primary">cancelled</span>
                                 @endif
 
                             </td>
 
                             <td class="text-muted">
-                                <a href="{{route('players.edit',$newPlayers->id)}}" class="btn btn-primary">Edit </a>
-                                <form action="{{route('players.destroy',$newPlayers->id)}}" method="DELETE">
+                                <a href="{{route('match.edit',$newMatches->id)}}" class="btn btn-primary">Edit </a>
+                                <form action="{{route('match.destroy',$newMatches->id)}}" method="DELETE">
                                     @method('DELETE')
                                     <button class="btn btn-danger">Delete</button>
                                 </form>

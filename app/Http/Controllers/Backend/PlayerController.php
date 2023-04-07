@@ -27,7 +27,8 @@ class PlayerController extends Controller
 
     public function index()
     {
-
+      $players =  Player::with('team')->get();
+      return view('pages.player.view-player',compact('players'));
     }
 
     /**
