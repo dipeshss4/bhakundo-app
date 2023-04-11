@@ -36,6 +36,7 @@ Route::middleware(['auth', 'role:admin'])->group(function () {
     Route::resource('players',\App\Http\Controllers\Backend\PlayerController::class);
     Route::resource('teams',\App\Http\Controllers\Backend\TeamsController::class);
     Route::resource('match',\App\Http\Controllers\Backend\MatchesController::class);
+    Route::get('viewProfile',[\App\Http\Controllers\Backend\DashboardController::class,'viewProfile'])->name('profile');
 });
 
 ;

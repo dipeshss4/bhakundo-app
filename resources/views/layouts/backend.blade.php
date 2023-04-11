@@ -12,16 +12,20 @@
     <meta name="csrf-token" content="{{ csrf_token() }}">
 
   <!-- Icons -->
-  <link rel="shortcut icon" href="{{ asset('media/favicons/favicon.png') }}">  <div>
+  <link rel="shortcut icon" href="{{ asset('media/favicons/favicon1.png') }}">  <div>
         <img src="" alt="Old Image" style="max-width: 200px; max-height: 200px;">
     </div>
   <!-- Modules -->
   @yield('css')
+
+
   @vite(['resources/sass/main.scss', 'resources/js/dashmix/app.js'])
+
 
   <!-- Alternatively, you can also include a specific color theme after the main stylesheet to alter the default color theme of the template -->
   {{-- @vite(['resources/sass/main.scss', 'resources/sass/dashmix/themes/xwork.scss', 'resources/js/dashmix/app.js']) --}}
   @yield('js')
+
 </head>
 
 <body>
@@ -204,7 +208,7 @@
               D<span class="opacity-75">x</span>
             </span>
             <span class="smini-hidden">
-              Dash<span class="opacity-75">mix</span>
+             <img src="{{asset('/media/photos/logo.png')}}"  alt="" />
             </span>
           </a>
           <!-- END Logo -->
@@ -498,7 +502,7 @@
           <div class="dropdown d-inline-block">
             <button type="button" class="btn btn-alt-secondary" id="page-header-user-dropdown" data-bs-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
               <i class="fa fa-fw fa-user d-sm-none"></i>
-              <span class="d-none d-sm-inline-block">Admin</span>
+              <span class="d-none d-sm-inline-block">{{auth()->user()->first_name}}</span>
               <i class="fa fa-fw fa-angle-down opacity-50 ms-1 d-none d-sm-inline-block"></i>
             </button>
             <div class="dropdown-menu dropdown-menu-end p-0" aria-labelledby="page-header-user-dropdown">
@@ -506,16 +510,14 @@
                 User Options
               </div>
               <div class="p-2">
-                <a class="dropdown-item" href="javascript:void(0)">
+                <a class="dropdown-item" href="{{route('profile')}}">
                   <i class="far fa-fw fa-user me-1"></i> Profile
                 </a>
                 <a class="dropdown-item d-flex align-items-center justify-content-between" href="javascript:void(0)">
                   <span><i class="far fa-fw fa-envelope me-1"></i> Inbox</span>
                   <span class="badge bg-primary rounded-pill">3</span>
                 </a>
-                <a class="dropdown-item" href="javascript:void(0)">
-                  <i class="far fa-fw fa-file-alt me-1"></i> Invoices
-                </a>
+
                 <div role="separator" class="dropdown-divider"></div>
 
                 <!-- Toggle Side Overlay -->
