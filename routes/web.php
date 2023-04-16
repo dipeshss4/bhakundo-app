@@ -16,9 +16,9 @@ use Illuminate\Support\Facades\Route;
 // Example Routes
 
 
-
-
-
+Route::get('/',function (){
+    return view('ui');
+});
 Auth::routes();
 
 Route::middleware(['auth', 'role:admin'])->group(function () {

@@ -5,10 +5,11 @@
     <link rel="icon" type="image/svg+xml" href="/vite.svg" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>Bhakundo</title>
-    <link rel="" href="{{asset('assets/index-acf450f7.css')}}">
+    <script type="module" crossorigin src="/assets/index-fb4ba2dd.js"></script>
+    <link rel="stylesheet" href="/assets/index-a7abc0e4.css">
 </head>
 <body>
 <div id="root"></div>
-<script type="module" src="{{asset('assets/index-54b4232d.js')}}"></script>
+
 </body>
 </html>
