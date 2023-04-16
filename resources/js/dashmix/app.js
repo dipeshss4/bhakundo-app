@@ -8,6 +8,7 @@
 // Import required modules
 import Template from './modules/template';
 
+
 // App extends Template
 export default class App extends Template {
   /*

@@ -28,6 +28,10 @@ class Team extends Model
     {
         return $this->hasMany(Matche::class, 'away_team_id');
     }
+    public function matches()
+    {
+        return $this->hasMany(Matche::class);
+    }
 
     public function points()
     {

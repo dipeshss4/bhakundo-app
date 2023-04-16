@@ -3,6 +3,7 @@
 namespace App\Http\service;
 
 use App\Models\Matche;
+use App\Models\PlayerStat;
 use App\Models\Point;
 use App\Models\Team;
 
@@ -38,18 +39,14 @@ class MatchServices
     {
         // Get all the matches
         $matches = Matche::with('homeTeam.league','awayTeam.League')->get();
-
 // Define an empty array to store the team points
         $teamPoints = [];
-
 // Loop through all the matches and update the points for each team
         foreach ($matches as $match) {
             $homeTeam = $match->home_team_id;
             $awayTeam = $match->away_team_id;
             $hometeamLeague = $match->homeTeam->league->id;
             $awayTeamLeague = $match->awayTeam->league->id;
-
-
             // Check if the home team already has points
             if (isset($teamPoints[$homeTeam])) {
                 $points = $teamPoints[$homeTeam];
@@ -65,14 +62,10 @@ class MatchServices
                 $points->goal_difference = 0;
                 $points->points = 0;
             }
-
             // Calculate the home team points
-
             $points->goals_for += $match->home_team_score;
             $points->goals_against += $match->away_team_score;
             $points->goal_difference = $points->goals_for - $points->goals_against;
-
-
             // Calculate the home team points based on the match result
             if ($match->home_team_score > $match->away_team_score) {
                 $points->wins++;
@@ -83,11 +76,9 @@ class MatchServices
             } else {
                 $points->losses++;
             }
-
             // Save the home team points
             $points->save();
             $teamPoints[$homeTeam] = $points;
-
             // Check if the away team already has points
             if (isset($teamPoints[$awayTeam])) {
                 $points = $teamPoints[$awayTeam];
@@ -104,14 +95,10 @@ class MatchServices
                 $points->goal_difference = 0;
                 $points->points = 0;
             }
-
             // Calculate the away team points
-
             $points->goals_for += $match->away_team_score;
             $points->goals_against += $match->home_team_score;
             $points->goal_difference = $points->goals_for - $points->goals_against;
-
-
             // Calculate the away team points based on the match result
             if ($match->away_team_score > $match->home_team_score) {
                 $points->wins++;
@@ -122,13 +109,21 @@ class MatchServices
             } else {
                 $points->losses++;
             }
-
             // Save the away team points
             $points->save();
             $teamPoints[$awayTeam] = $points;
         }
-
-
+    }
+    public function insertPlayerStats($request,$match){
+        PlayerStat::create([
+            'player_id' =>$request->get('player_id'),
+            'match_id' => $match->id,
+            'team_id' => '',
+            'goals'  => $request->goals,
+            'assists' => $request->assists,
+            'yellow_cards' => $request->yellow_cards,
+            'red_cards' => $request->red_cards,
+        ]);
     }
 
 }

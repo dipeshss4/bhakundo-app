@@ -8,7 +8,7 @@ use Illuminate\Http\Request;
 class RestLeagueController extends Controller
 {
     public  function  getAllLeague(){
-        $league = League::where('status',1)->get();
+        $league = League::with('teams')->where('status',1)->get();
         if ($league){
             return response()->json([
                 'success' => true,
@@ -19,16 +19,13 @@ class RestLeagueController extends Controller
 
     }
     public  function  getLeague($id){
-        $league =League::where('id',$id)->where('status',1)->first();
-        if ($league){
+        $leagueWithTeams = League::with('teams')->find($id);
+        if ($leagueWithTeams){
             return response()->json([
                 'success' => true,
-                'data'   => $league
+                'data'   => $leagueWithTeams
             ]);
         }
-
-
-
     }
 
 }

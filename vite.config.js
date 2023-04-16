@@ -9,6 +9,12 @@ export default defineConfig({
                 'resources/js/app.js',
             ],
             refresh: true,
+            rollupInputOptions: {
+                external: ['resources/js/pages/Validation.js']
+
+            }
+
         }),
+
     ],
 });

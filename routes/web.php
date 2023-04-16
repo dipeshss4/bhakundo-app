@@ -14,13 +14,8 @@ use Illuminate\Support\Facades\Route;
 */
 
 // Example Routes
-Route::view('/', 'landing');
-Route::match(['get', 'post'], '/dashboard', function(){
-    return view('dashboard');
-});
-Route::view('/pages/slick', 'pages.slick');
-Route::view('/pages/datatables', 'pages.datatables');
-Route::view('/pages/blank', 'pages.blank');
+
+
 
 
 
@@ -37,6 +32,10 @@ Route::middleware(['auth', 'role:admin'])->group(function () {
     Route::resource('teams',\App\Http\Controllers\Backend\TeamsController::class);
     Route::resource('match',\App\Http\Controllers\Backend\MatchesController::class);
     Route::get('viewProfile',[\App\Http\Controllers\Backend\DashboardController::class,'viewProfile'])->name('profile');
+    Route::match(['get', 'post'], '/dashboard', function(){
+        return view('dashboard');
+    });
+
 });
 
 ;

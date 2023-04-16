@@ -97,4 +97,39 @@ class FrontendNewsController extends Controller
             ],200);
         }
     }
+
+    public  function getFeaturedNews(){
+        $restNews = News::select('id','author_id','news_category_id','title','image_url','video_url','created_at')->with(['author.user', 'category'])
+            ->whereHas('author.user', function($query) {
+                $query->whereHas('roles', function($query) {
+                    $query->where('name', 'editor');
+                });
+            })->where('featured',1)
+            ->where('status',1)
+            ->get();
+
+        if ($restNews){
+            return response()->json([
+                'success' =>true,
+                'data' =>$restNews
+            ],200);
+        }
+    }
+    public function getPopularNews(){
+        $restNews = News::select('id','author_id','news_category_id','score','title','image_url','video_url','created_at')->with(['author.user', 'category'])
+            ->whereHas('author.user', function($query) {
+                $query->whereHas('roles', function($query) {
+                    $query->where('name', 'editor');
+                });
+            })->where('status',1)
+            ->orderBy('score','DESC')
+            ->get();
+
+        if ($restNews){
+            return response()->json([
+                'success' =>true,
+                'data' =>$restNews
+            ],200);
+        }
+    }
 }

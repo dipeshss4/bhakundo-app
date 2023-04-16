@@ -6,6 +6,7 @@ use App\Http\Controllers\Controller;
 use App\Http\Requests\MatchRequest;
 use App\Http\service\MatchServices;
 use App\Models\Matche;
+use App\Models\Player;
 use App\Models\Team;
 use Illuminate\Http\Request;
 
@@ -79,8 +80,14 @@ class MatchesController extends Controller
     public function edit($id)
     {
         $MatchEdit=Matche::with('homeTeam','awayTeam')->find($id);
-        $teams = Team::where('status',1)->get();
-        return view('pages.matches.edit-match',compact('MatchEdit','teams'));
+        $teams = Team::with('players')->where('status',1)->get();
+
+        dd($teams);
+        return view('pages.matches.edit-match',compact(
+            'MatchEdit',
+            'teams',
+            'players'
+        ));
     }
 
     /**
