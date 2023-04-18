@@ -1,26 +1,35 @@
-FROM php:8.1-fpm
+FROM php:8.1.18-fpm
 
-RUN apt-get update && \
-    apt-get install -y \
-        curl \
-        zip \
-        unzip \
-        libpng-dev \
-        libonig-dev \
-        libxml2-dev \
-        libzip-dev \
-    && docker-php-ext-install pdo_mysql mbstring exif pcntl bcmath gd \
-    && pecl install xdebug \
-    && docker-php-ext-enable xdebug
+# Arguments defined in docker-compose.yml
+ARG user
+ARG uid
 
-RUN curl -sS https://getcomposer.org/installer | php -- --install-dir=/usr/local/bin --filename=composer
+# Install system dependencies
+RUN apt-get update && apt-get install -y \
+    git \
+    curl \
+    libpng-dev \
+    libonig-dev \
+    libxml2-dev \
+    zip \
+    unzip
 
-WORKDIR /var/www/html
+# Clear cache
+RUN apt-get clean && rm -rf /var/lib/apt/lists/*
 
-COPY . .
+# Install PHP extensions
+RUN docker-php-ext-install pdo_mysql mbstring exif pcntl bcmath gd
 
-RUN composer install --no-interaction --no-dev --prefer-dist
+# Get latest Composer
+COPY --from=composer:latest /usr/bin/composer /usr/bin/composer
 
-CMD ["php-fpm"]
+# Create system user to run Composer and Artisan Commands
+RUN useradd -G www-data,root -u $uid -d /home/$user $user
+RUN mkdir -p /home/$user/.composer && \
+    chown -R $user:$user /home/$user
 
-EXPOSE 9000
+# Set working directory
+WORKDIR /var/www
+
+USER $user
+
