@@ -1,54 +1,52 @@
-version: '3.9'
+version: "3.7"
 services:
-    app:
-        image: bhakundo-app
-        container_name: bhakundo-app
-        build:
-            context: .
-            dockerfile: Dockerfile
-        restart: unless-stopped
-        working_dir: /var/www/html
-        volumes:
-            - .:/var/www/html
-        environment:
-            DB_CONNECTION: mysql
-            DB_HOST: mysql
-            DB_PORT: 3306
-            DB_DATABASE: bhakundo-app
-            DB_USERNAME: root
-            DB_PASSWORD: password
-            APP_ENV: local
-            APP_DEBUG: true
-            APP_KEY: base64:abcdefghijklmnopqrstuvwxyz0123456789=
-            LOG_CHANNEL: daily
-            LOG_LEVEL: debug
-        depends_on:
-            - mysql
-        networks:
-            - app-network
+  bhakundo:
+    build:
+      args:
+        user: bhakundouser
+        uid: 1000
+      context: ./
+      dockerfile: Dockerfile
+    image: bhakundo
+    container_name: bhakundo-app
+    restart: unless-stopped
+    working_dir: /var/www/
+    volumes:
+      - ./:/var/www
+    networks:
+      - bhakundo-net
 
-    mysql:
-        image: mysql:8.0
-        container_name: bhakundo-mysql
-        restart: unless-stopped
-        command: --default-authentication-plugin=mysql_native_password
-        environment:
-            MYSQL_DATABASE: bhakundo-app
-            MYSQL_USER: root
-            MYSQL_PASSWORD: password
-            MYSQL_ROOT_PASSWORD: password
-            SERVICE_TAGS: dev
-            SERVICE_NAME: mysql
-        volumes:
-            - mysql_data:/var/lib/mysql
-        ports:
-            - '3306:3306'
-        networks:
-            - app-network
+  db:
+    image: mysql:8.0
+    container_name: bhakundo-db
+    restart: unless-stopped
+    ports:
+        - 3306:3306
+    environment:
+      MYSQL_DATABASE: ${DB_DATABASE}
+      MYSQL_ROOT_PASSWORD: ${DB_PASSWORD}
+      MYSQL_PASSWORD: ${DB_PASSWORD}
+      MYSQL_USER: ${DB_USERNAME}
+      SERVICE_TAGS: dev
+      SERVICE_NAME: mysql
+      MYSQL_ROOT_HOST: '%'
+    volumes:
+      - ./docker-compose/mysql:/docker-entrypoint-initdb.d
+    networks:
+      - bhakundo-net
 
-volumes:
-    mysql_data:
+  nginx:
+    image: nginx:1.17-alpine
+    container_name: bhakundo-nginx
+    restart: unless-stopped
+    ports:
+      - 8000:80
+    volumes:
+      - ./:/var/www
+      - ./docker-compose/nginx:/etc/nginx/conf.d
+    networks:
+      - bhakundo-net
 
 networks:
-    app-network:
-        driver: bridge
+  bhakundo-net:
+    driver: bridge

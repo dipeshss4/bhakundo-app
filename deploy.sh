@@ -1,5 +1,7 @@
 #!/bin/bash
 #
+cp .env env.beforedeploy
+cp env.prod .env
 
 rm -rf node_modules
 rm package-lock.json
@@ -10,6 +12,7 @@ npm run build
 docker-compose build
 docker-compose up -d
 sleep 10
+docker-compose exec bhakundo php artisan key:generate
 docker-compose exec bhakundo php artisan config:clear
 docker-compose exec bhakundo php artisan config:cache
 docker-compose exec bhakundo php artisan optimize
