@@ -16,18 +16,18 @@ class UsersTableSeeder extends Seeder
      */
     public function run()
     {
-//        $roles = [
-//            [
-//                'name' => 'admin',
-//                'guard_name' => 'web'
-//            ],
-//            [
-//                'name' => 'editor',
-//                'guard_name' => 'web'
-//            ]
-//        ];
-//
-//        Role::insert($roles);
+        $roles = [
+            [
+                'name' => 'admin',
+                'guard_name' => 'web'
+            ],
+            [
+                'name' => 'editor',
+                'guard_name' => 'web'
+            ]
+        ];
+
+        Role::insert($roles);
 
         //for creating admin users
         $admin = User::create([
