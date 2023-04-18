@@ -7,6 +7,8 @@ export default defineConfig({
             input: [
                 'resources/sass/app.scss',
                 'resources/js/app.js',
+                'resources/sass/main.scss', 
+                'resources/js/dashmix/app.js'
             ],
             refresh: true,
             rollupInputOptions: {
