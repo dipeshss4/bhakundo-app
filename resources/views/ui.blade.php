@@ -5,7 +5,7 @@
     <link rel="icon" type="image/svg+xml" href="/vite.svg" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>Bhakundo</title>
-    <script type="module" crossorigin src="/assets/index-fb4ba2dd.js"></script>
+    <script type="module" crossorigin src="/assets/index-6ff08c15.js"></script>
     <link rel="stylesheet" href="/assets/index-a7abc0e4.css">
 </head>
 <body>
