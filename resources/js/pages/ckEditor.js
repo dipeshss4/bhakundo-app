@@ -7,7 +7,7 @@ console.log(csrfToken);
 ClassicEditor
     .create( document.querySelector( '#js-ckeditor5-classic' ),{
         ckfinder: {
-            uploadUrl: 'http://localhost:8000/api/uploadNewsImage',
+            uploadUrl: 'http://localhost:80/api/uploadNewsImage',
 
         }
     })
