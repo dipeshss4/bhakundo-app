@@ -6,6 +6,7 @@ use App\Http\Controllers\Controller;
 use App\Http\Requests\NewsRequest;
 use App\Http\service\NewsService;
 use App\Models\Author;
+use App\Models\News;
 use App\Models\News_Category;
 use Illuminate\Http\Request;
 
@@ -106,10 +107,19 @@ class NewsController extends Controller
      * Remove the specified resource from storage.
      *
      * @param  int  $id
-     * @return \Illuminate\Http\Response
+     * @return \Illuminate\Http\RedirectResponse
      */
     public function destroy($id)
     {
-        //
+        try {
+            $deleteNews = News::where('id',$id)->delete();
+            if ($deleteNews){
+                return  view('pages.news.index-news');
+            }
+        }
+        catch (\Exception $exception){
+            return  redirect()->back()->with('error',$exception);
+        }
+
     }
 }
