@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Models\League;
 use App\Models\Matche;
+use App\Models\Team;
 use Illuminate\Http\Request;
 
 class RestMatchController extends Controller
