@@ -96,7 +96,8 @@
                             </td>
                             <td class="text-muted">
                                 <a href="{{route('news.edit',$newNews->id)}}" class="btn btn-primary">Edit </a>
-                                <form action="{{route('news.destroy',$newNews->id)}}" method="DELETE">
+                                <form action="{{route('news.destroy',$newNews->id)}}" method="POST">
+                                    @csrf
                                     @method('DELETE')
                                     <button class="btn btn-danger">Delete</button>
                                 </form>
