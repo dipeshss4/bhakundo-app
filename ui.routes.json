@@ -1,0 +1,5 @@
+[
+    "/signin",
+    "/article/{id}",
+    "/tournament/{id}/{slug}"
+]
