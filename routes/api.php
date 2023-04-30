@@ -32,6 +32,8 @@ Route::get('popularNews',[\App\Http\Controllers\FrontendNewsController::class,'g
 Route::get('getAllMatches',[\App\Http\Controllers\RestMatchController::class,'getAllMatches']);
 Route::get('getData/{id}',[\App\Http\Controllers\RestMatchController::class,'getMatchLeague']);
 Route::get('getLatestMatch/{id}',[\App\Http\Controllers\RestMatchController::class,'getLatestMatches']);
+Route::post('register',[\App\Http\Controllers\Backend\LoginController::class,'register'])->name('register');
+Route::post('login',[\App\Http\Controllers\Backend\LoginController::class,'login'])->name('login');
 
 
 

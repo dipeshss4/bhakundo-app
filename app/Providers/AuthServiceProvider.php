@@ -5,6 +5,7 @@ namespace App\Providers;
 // use Illuminate\Support\Facades\Gate;
 use Illuminate\Foundation\Support\Providers\AuthServiceProvider as ServiceProvider;
 use Illuminate\Support\Facades\Gate;
+use Laravel\Passport\Passport;
 use Spatie\Permission\Models\Permission;
 use Spatie\Permission\Models\Role;
 
@@ -16,7 +17,7 @@ class AuthServiceProvider extends ServiceProvider
      * @var array<class-string, class-string>
      */
     protected $policies = [
-        // 'App\Models\Model' => 'App\Policies\ModelPolicy',
+        'App\Models\Model' => 'App\Policies\ModelPolicy',
     ];
 
     /**
@@ -34,6 +35,7 @@ class AuthServiceProvider extends ServiceProvider
         Gate::define('editor', function ($user) {
             return $user->hasRole('editor');
         });
+        Passport::ignoreRoutes();
 
 //        $adminRole = Role::create(['name' => 'admin']);
 //        $editorRole = Role::create(['name' => 'editor']);
