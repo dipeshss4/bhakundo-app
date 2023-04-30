@@ -31,6 +31,7 @@ Route::get('getFeatured',[\App\Http\Controllers\FrontendNewsController::class,'g
 Route::get('popularNews',[\App\Http\Controllers\FrontendNewsController::class,'getPopularNews']);
 Route::get('getAllMatches',[\App\Http\Controllers\RestMatchController::class,'getAllMatches']);
 Route::get('getData/{id}',[\App\Http\Controllers\RestMatchController::class,'getMatchLeague']);
+Route::get('getLatestMatch/{id}',[\App\Http\Controllers\RestMatchController::class,'getLatestMatches']);
 
 
 

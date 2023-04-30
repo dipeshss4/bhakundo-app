@@ -79,7 +79,29 @@ class RestMatchController extends Controller
             'success' =>true,
             'data'  =>$response
         ]);
+    }
+    public  function getLatestMatches($leagueId){
+        $league_id = $leagueId; // replace with your desired league id
+        $teams = Team::where('league_id', $league_id)->get();
+        $matches = Matche::with('homeTeam','awayTeam')->whereIn('home_team_id', $teams->pluck('id'))
+            ->orWhereIn('away_team_id', $teams->pluck('id'))
+            ->where('status', 1)->orderBy('updated_at','DESC')
+            ->get();
 
+        $response = [];
+        foreach ($matches as $match) {
+            $response[] = [
+                'date' => $match->match_date_time,
+                'team1' => $match->homeTeam->name,
+                'team2' => $match->awayTeam->name,
+                'team1_logo' => $match->homeTeam->logo,
+                'team2_logo' => $match->awayTeam->logo,
+            ];
+        }
+        return response()->json([
+            'success' =>true,
+            'data'  =>$response
+        ]);
 
     }
 

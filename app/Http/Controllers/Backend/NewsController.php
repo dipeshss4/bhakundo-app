@@ -77,7 +77,7 @@ class NewsController extends Controller
      * Show the form for editing the specified resource.
      *
      * @param  int  $id
-     * @return \Illuminate\Http\Response
+     * @return \Illuminate\Contracts\Foundation\Application|\Illuminate\Contracts\View\Factory|\Illuminate\Contracts\View\View
      */
     public function edit($id)
     {
@@ -96,11 +96,18 @@ class NewsController extends Controller
      *
      * @param  \Illuminate\Http\Request  $request
      * @param  int  $id
-     * @return \Illuminate\Http\Response
+     * @return \Illuminate\Http\RedirectResponse
      */
     public function update(Request $request, $id)
     {
-        $this->newService->update($request,$id);
+        $updateNews = $this->newService->update($request,$id);
+        if ($updateNews){
+            return  redirect()->route('news.index')->with('success','Successfully Updated');
+
+        }
+        else{
+            return  redirect()->back()->with('error','cannot update Data')
+;        }
     }
 
     /**

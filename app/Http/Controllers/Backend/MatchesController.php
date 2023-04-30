@@ -82,11 +82,9 @@ class MatchesController extends Controller
         $MatchEdit=Matche::with('homeTeam','awayTeam')->find($id);
         $teams = Team::with('players')->where('status',1)->get();
 
-        dd($teams);
         return view('pages.matches.edit-match',compact(
             'MatchEdit',
             'teams',
-            'players'
         ));
     }
 
