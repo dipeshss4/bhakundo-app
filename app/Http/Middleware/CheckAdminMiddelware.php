@@ -17,7 +17,8 @@ class CheckAdminMiddelware
      */
     public function handle(Request $request, Closure $next)
     {
-         if (!Auth::user()->hasRole('admin')){
+
+         if (!Auth::user()->hasRole('admin'||'editor')){
              abort(403, 'Unauthorized action.');
          }
         return $next($request);

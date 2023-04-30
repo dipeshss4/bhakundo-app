@@ -21,7 +21,7 @@ Route::get('/',function (){
 });
 Auth::routes();
 
-Route::middleware(['auth', 'role:admin'])->group(function () {
+Route::middleware(['auth', 'role:admin|editor'])->group(function () {
     Route::resource('news',\App\Http\Controllers\Backend\NewsController::class);
     Route::resource('author',\App\Http\Controllers\Backend\AuthorController::class);
     Route::resource('users',\App\Http\Controllers\Backend\UserController::class);
@@ -32,12 +32,14 @@ Route::middleware(['auth', 'role:admin'])->group(function () {
     Route::resource('teams',\App\Http\Controllers\Backend\TeamsController::class);
     Route::resource('match',\App\Http\Controllers\Backend\MatchesController::class);
     Route::get('viewProfile',[\App\Http\Controllers\Backend\DashboardController::class,'viewProfile'])->name('profile');
+    Route::get('editProfile/{id}',[\App\Http\Controllers\Backend\DashboardController::class,'editProfile'])->name('editProfile');
     Route::match(['get', 'post'], '/dashboard', function(){
         return view('dashboard');
     });
 
 });
 
-;
+
+
 Route::get('/home', [App\Http\Controllers\HomeController::class, 'index'])->name('home');
 
