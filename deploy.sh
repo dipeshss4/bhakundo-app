@@ -18,5 +18,6 @@ docker-compose exec bhakundo php artisan config:cache
 docker-compose exec bhakundo php artisan optimize
 docker-compose exec bhakundo php artisan migrate --force
 docker-compose exec bhakundo php artisan db:seed --force
+docker-compose exec bhakundo php artisan passport:install
 
 echo "Deployed Sucessfully! Check Servers."
