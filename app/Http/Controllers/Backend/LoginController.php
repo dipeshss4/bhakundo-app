@@ -42,7 +42,13 @@ class LoginController extends Controller
 
         if (auth()->attempt($data)) {
             $token = auth()->user()->createToken('Token')->accessToken;
-            return response()->json(['token' => $token], 200);
+            $userData =[];
+            $userData=[
+                'first_name' =>auth()->user()->first_name,
+                'last_name' => auth()->user()->last_name,
+                'email'     =>auth()->user()->email,
+            ];
+            return response()->json(['token' => $token,'data' =>$userData], 200);
         } else {
             return response()->json(['error' => 'Unauthorised'], 401);
         }
