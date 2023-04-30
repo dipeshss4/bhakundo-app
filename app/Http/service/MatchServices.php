@@ -100,7 +100,6 @@ class MatchServices
             } else {
                 $points = new Point;
                 $points->team_id = $awayTeam;
-
                 $points->league_id = $awayTeamLeague;
                 $points->match_id=$match_id;
                 $points->wins = 0; // set default value for wins column

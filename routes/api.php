@@ -36,4 +36,5 @@ Route::post('register-api',[\App\Http\Controllers\Backend\LoginController::class
 Route::post('login-api',[\App\Http\Controllers\Backend\LoginController::class,'login'])->name('login-api');
 Route::get('getLatestNews',[\App\Http\Controllers\FrontendNewsController::class,'getLatestNews']);
 Route::get('logout-api',[\App\Http\Controllers\Backend\LoginController::class,'logout'])->name('logout-api');
+Route::get('points/{id}',[\App\Http\Controllers\RestPointsController::class,'getPointsTable']);
 
