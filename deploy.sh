@@ -46,5 +46,7 @@ docker-compose exec bhakundo php artisan optimize
 docker-compose exec bhakundo php artisan migrate --force
 docker-compose exec bhakundo php artisan db:seed --force --class=UsersTableSeeder
 docker-compose exec bhakundo php aritsan storage:link
+docker-compose exec bhakundo php artisan passport:install
+
 
 echo "Deployed Sucessfully! Check Servers."

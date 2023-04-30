@@ -99,7 +99,7 @@ class FrontendNewsController extends Controller
     }
 
     public  function getFeaturedNews(){
-        $restNews = News::select('id','author_id','news_category_id','title','image_url','video_url','created_at')->with(['author.user', 'category'])
+        $restNews = News::select('id','author_id','news_category_id','title','image_url','video_url','created_at','content')->with(['author.user', 'category'])
             ->whereHas('author.user', function($query) {
                 $query->whereHas('roles', function($query) {
                     $query->where('name', 'editor');
@@ -116,7 +116,7 @@ class FrontendNewsController extends Controller
         }
     }
     public function getPopularNews(){
-        $restNews = News::select('id','author_id','news_category_id','score','title','image_url','video_url','created_at')->with(['author.user', 'category'])
+        $restNews = News::select('id','author_id','news_category_id','score','title','image_url','video_url','created_at','content')->with(['author.user', 'category'])
             ->whereHas('author.user', function($query) {
                 $query->whereHas('roles', function($query) {
                     $query->where('name', 'editor');
@@ -133,7 +133,7 @@ class FrontendNewsController extends Controller
         }
     }
     public function getLatestNews(){
-        $restNews = News::select('id','author_id','news_category_id','title','image_url','video_url','created_at')->with(['author.user', 'category'])
+        $restNews = News::select('id','author_id','news_category_id','title','image_url','video_url','created_at','content')->with(['author.user', 'category'])
             ->whereHas('author.user', function($query) {
                 $query->whereHas('roles', function($query) {
                     $query->where('name', 'editor');

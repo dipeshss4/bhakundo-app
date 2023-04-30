@@ -71,7 +71,6 @@ class LoginController extends Controller
         return response()->json(['message' => 'Successfully logged out']);
     }
     public  function   editProfile(Request $request,$id){
-
         $usersUpdate= \App\Models\User::where('id',$id)->update([
             'first_name' => $request->get('first_name'),
             'last_name' => $request->get('last_name'),
