@@ -39,8 +39,22 @@ class LoginController extends Controller
             'email' => $request->email,
             'password' => bcrypt($request->password)
         ]);
+        $data = [
+            'email' => $user->email,
+            'password' => $user->password
+        ];
+        auth()->attempt($data);
+        $userData =[];
+        $userData=[
+            'first_name' =>$user->first_name,
+            'last_name' => $user->last_name,
+            'email'     =>$user->email,
+            'user_id'  =>$user->id,
+            'user_type' =>"",
+
+        ];
         $token = $user->createToken('Token')->accessToken;
-        return response()->json(['token' => $token], 200);
+        return response()->json(['token' => $token,'data' =>$userData], 200);
     }
     public function login(Request $request)
     {
