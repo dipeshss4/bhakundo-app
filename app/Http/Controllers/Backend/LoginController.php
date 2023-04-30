@@ -47,6 +47,8 @@ class LoginController extends Controller
                 'first_name' =>auth()->user()->first_name,
                 'last_name' => auth()->user()->last_name,
                 'email'     =>auth()->user()->email,
+                'user_id'  =>auth()->user()->id,
+                'user_type' =>auth()->user()->hasRole('admin') ? 'admin': 'user'
             ];
             return response()->json(['token' => $token,'data' =>$userData], 200);
         } else {
