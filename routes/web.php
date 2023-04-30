@@ -14,11 +14,18 @@ use Illuminate\Support\Facades\Route;
 */
 
 // Example Routes
-
+$UI_ROUTES = json_decode(file_get_contents(base_path() . "/ui.routes.json"), true);
 
 Route::get('/',function (){
     return view('ui');
 });
+
+foreach ($UI_ROUTES as $route) {
+    Route::get($route, function() {
+        return view('ui');
+    });
+}
+
 Auth::routes();
 
 Route::middleware(['auth', 'role:admin|editor'])->group(function () {
