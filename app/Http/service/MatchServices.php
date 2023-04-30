@@ -20,19 +20,27 @@ class MatchServices
         ]);
     }
     public  function  updateMatch($request,$id){
+
+
         $matchUpdate= Matche::where('id',$id)->update([
             'home_team_id' => $request->get('home_team_id'),
             'away_team_id' =>$request->get('away_team_id'),
             'stadium_name' =>$request->get('stadium_name'),
             'location' =>$request->get('location'),
             'home_team_score' =>$request->get('home_team_score'),
-            'away_team_score' =>$request->get('home_team_score'),
+            'away_team_score' =>$request->get('away_team_score'),
             'status' =>$request->get('status'),
             'match_date_time' =>$request->get('match_date'),
         ]);
 
-     $this->updateScore();
-     return $matchUpdate;
+         $point = Point::where('match_id',$id)->exists();
+         if ($point){
+             return $matchUpdate;
+         }
+         else{
+             $this->updateScore();
+             return $matchUpdate;
+         }
 
     }
     public function updateScore(): void
@@ -47,6 +55,7 @@ class MatchServices
             $awayTeam = $match->away_team_id;
             $hometeamLeague = $match->homeTeam->league->id;
             $awayTeamLeague = $match->awayTeam->league->id;
+            $match_id = $match->id;
             // Check if the home team already has points
             if (isset($teamPoints[$homeTeam])) {
                 $points = $teamPoints[$homeTeam];
@@ -54,6 +63,7 @@ class MatchServices
                 $points = new Point;
                 $points->team_id = $homeTeam;
                 $points->league_id = $hometeamLeague;
+                $points->match_id=$match_id;
                 $points->wins = 0; // set default value for wins column
                 $points->draws = 0;
                 $points->losses = 0;
@@ -61,6 +71,8 @@ class MatchServices
                 $points->goals_against = 0;
                 $points->goal_difference = 0;
                 $points->points = 0;
+                $points->form = '';
+
             }
             // Calculate the home team points
             $points->goals_for += $match->home_team_score;
@@ -70,11 +82,14 @@ class MatchServices
             if ($match->home_team_score > $match->away_team_score) {
                 $points->wins++;
                 $points->points += 3;
+                $points->form .= 'W';
             } elseif ($match->home_team_score == $match->away_team_score) {
                 $points->draws++;
                 $points->points += 1;
+                $points->form .= 'D';
             } else {
                 $points->losses++;
+                $points->form .= 'L';
             }
             // Save the home team points
             $points->save();
@@ -87,6 +102,7 @@ class MatchServices
                 $points->team_id = $awayTeam;
 
                 $points->league_id = $awayTeamLeague;
+                $points->match_id=$match_id;
                 $points->wins = 0; // set default value for wins column
                 $points->draws = 0;
                 $points->losses = 0;
@@ -94,6 +110,8 @@ class MatchServices
                 $points->goals_against = 0;
                 $points->goal_difference = 0;
                 $points->points = 0;
+                $points->form = '';
+
             }
             // Calculate the away team points
             $points->goals_for += $match->away_team_score;
@@ -103,22 +121,25 @@ class MatchServices
             if ($match->away_team_score > $match->home_team_score) {
                 $points->wins++;
                 $points->points += 3;
+                $points->form .= 'W';
             } elseif ($match->away_team_score == $match->home_team_score) {
                 $points->draws++;
                 $points->points += 1;
+                $points->form .= 'D';
             } else {
                 $points->losses++;
+                $points->form .= 'L';
             }
             // Save the away team points
             $points->save();
             $teamPoints[$awayTeam] = $points;
+
         }
     }
     public function insertPlayerStats($request,$match){
         PlayerStat::create([
             'player_id' =>$request->get('player_id'),
             'match_id' => $match->id,
-            'team_id' => '',
             'goals'  => $request->goals,
             'assists' => $request->assists,
             'yellow_cards' => $request->yellow_cards,

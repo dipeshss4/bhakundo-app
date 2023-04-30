@@ -8,7 +8,12 @@ use Illuminate\Database\Eloquent\Model;
 class Point extends Model
 {
     use HasFactory;
-    protected $fillable = ['id','team_id','league_id','points','wins','losses','draws','goals_for','goals_against','goal_difference'];
+
+    /**
+     * @var \Illuminate\Database\Eloquent\HigherOrderBuilderProxy|int|mixed
+     */
+
+    protected $fillable = ['id','team_id','league_id','points','wins','losses','draws','goals_for','goals_against','goal_difference','match_id'];
     public function team()
     {
         return $this->belongsTo(Team::class);
@@ -17,6 +22,9 @@ class Point extends Model
     public function league()
     {
         return $this->belongsTo(League::class);
+    }
+    public  function match(){
+        return $this->belongsTo(Matche::class);
     }
 
 }
