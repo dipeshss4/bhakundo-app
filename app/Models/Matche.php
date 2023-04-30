@@ -28,4 +28,8 @@ class Matche extends Model
     {
         return $this->hasMany(Score::class);
     }
+    public function points()
+    {
+        return $this->hasMany(Point::class);
+    }
 }
