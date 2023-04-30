@@ -32,7 +32,7 @@ Route::get('popularNews',[\App\Http\Controllers\FrontendNewsController::class,'g
 Route::get('getAllMatches',[\App\Http\Controllers\RestMatchController::class,'getAllMatches']);
 Route::get('getData/{id}',[\App\Http\Controllers\RestMatchController::class,'getMatchLeague']);
 Route::get('getLatestMatch/{id}',[\App\Http\Controllers\RestMatchController::class,'getLatestMatches']);
-Route::post('register-api',[\App\Http\Controllers\Backend\LoginController::class,'register'])->name('register');
+Route::post('register-api',[\App\Http\Controllers\Backend\LoginController::class,'register'])->name('register-api');
 Route::post('login-api',[\App\Http\Controllers\Backend\LoginController::class,'login'])->name('login-api');
 Route::get('getLatestNews',[\App\Http\Controllers\FrontendNewsController::class,'getLatestNews']);
 
