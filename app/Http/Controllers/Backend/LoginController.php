@@ -3,8 +3,10 @@
 namespace App\Http\Controllers\Backend;
 
 use App\Http\Controllers\Controller;
+use Auth;
 use http\Client\Curl\User;
 use Illuminate\Http\Request;
+use Laravel\Passport\Token;
 
 class LoginController extends Controller
 {
@@ -44,5 +46,11 @@ class LoginController extends Controller
         } else {
             return response()->json(['error' => 'Unauthorised'], 401);
         }
+    }
+    public  function logout(){
+        $accessToken = Auth::user()->token();
+        Token::where('id', $accessToken->id)->update(['revoked' => true]);
+        $accessToken->revoke();
+        return response()->json(['message' => 'Successfully logged out']);
     }
 }
