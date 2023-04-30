@@ -44,7 +44,7 @@ class MatchesController extends Controller
      * Store a newly created resource in storage.
      *
      * @param  \Illuminate\Http\Request  $request
-     * @return \Illuminate\Http\Response
+     * @return \Illuminate\Http\RedirectResponse
      */
     public function store(MatchRequest $request)
     {
@@ -81,7 +81,6 @@ class MatchesController extends Controller
     {
         $MatchEdit=Matche::with('homeTeam','awayTeam')->find($id);
         $teams = Team::with('players')->where('status',1)->get();
-
         return view('pages.matches.edit-match',compact(
             'MatchEdit',
             'teams',
@@ -93,11 +92,17 @@ class MatchesController extends Controller
      *
      * @param  \Illuminate\Http\Request  $request
      * @param  int  $id
-     * @return \Illuminate\Http\Response
+     * @return \Illuminate\Http\RedirectResponse
      */
     public function update(Request $request, $id)
     {
         $matchUpdate = $this->matchservices->updateMatch($request,$id);
+        if ($matchUpdate){
+            return  redirect()->route('match.index')->with('success','Successfull Match Updated');
+        }
+        else{
+            return  redirect()->back()->with('error','cannot update matches');
+        }
 
     }
 
@@ -105,10 +110,16 @@ class MatchesController extends Controller
      * Remove the specified resource from storage.
      *
      * @param  int  $id
-     * @return \Illuminate\Http\Response
+     * @return \Illuminate\Http\RedirectResponse
      */
     public function destroy($id)
     {
-        //
+        $matchDelete= Matche::where('id',$id)->delete();
+        if ($matchDelete){
+            return  redirect()->route('match.index')->with('success','Successfull Match Deleted');
+        }
+        else{
+            return  redirect()->back()->with('error','cannot delete match');
+        }
     }
 }
