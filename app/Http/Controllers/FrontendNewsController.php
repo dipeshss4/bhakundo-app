@@ -2,8 +2,10 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\Comments;
 use App\Models\News;
 use App\Models\News_Category;
+use App\Models\Reactions;
 use Illuminate\Http\Request;
 
 class FrontendNewsController extends Controller
@@ -148,5 +150,41 @@ class FrontendNewsController extends Controller
                 'data' =>$restNews
             ],200);
         }
+    }
+    public function insertComment(Request $request){
+       $comment = Comments::create([
+           'news_id' => $request->get('news_id'),
+           'user_id' => \Auth::user()->id,
+           'content' => $request->get('content')
+       ]);
+       if ($comment){
+           return response()->json([
+               'success' => true,
+               'data'  =>'Successfully Comment Added'
+           ],200);
+       }
+       else{
+           return response()->json([
+               'success' => true,
+               'data'  =>'Comment Could not be be Added'
+           ],401);
+       }
+    }
+    public  function insertReaction(Request $request){
+       $reactionExists =Reactions::where('news_id',$request->get('news_id'))->where('user_id',\Auth::user()->id)->exists();
+       if ($reactionExists){
+           Reactions::where('news_id',$request->get('news_id'))->where('user_id',\Auth::user()->id)->update([
+               'type' => $request->get('reactions') =='like' ? 'like' :'dislike'
+           ]);
+       }
+       else{
+           Reactions::create([
+               'news_id' => $request->get('news_id'),
+               'user_id' => \Auth::user()->id,
+               'type' => $request->get('reactions') =='like' ? 'like' :'dislike'
+           ]);
+       }
+
+
     }
 }

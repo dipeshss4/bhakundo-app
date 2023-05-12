@@ -47,7 +47,10 @@ Route::middleware(['auth', 'role:admin|editor'])->group(function () {
 
 });
 
-
+Route::get('/auth/facebook', [\App\Http\Controllers\Backend\LoginController::class,'redirectToFacebook']);
+Route::get('/auth/facebook/callback',[\App\Http\Controllers\Backend\LoginController::class,'handleFacebookCallback']);
+Route::get('/auth/google', [\App\Http\Controllers\Backend\LoginController::class,'redirectToGoogle']);
+Route::get('/auth/google/callback', [\App\Http\Controllers\Backend\LoginController::class,'handleGoogleCallback']);
 
 Route::get('/home', [App\Http\Controllers\HomeController::class, 'index'])->name('home');
 

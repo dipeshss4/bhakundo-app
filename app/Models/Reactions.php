@@ -8,5 +8,5 @@ use Illuminate\Database\Eloquent\Model;
 class Reactions extends Model
 {
     use HasFactory;
-    protected $fillable = ['news_id','user_id'];
+    protected $fillable = ['news_id','user_id','type'];
 }
