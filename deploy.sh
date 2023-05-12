@@ -3,7 +3,7 @@
 cp .env env.beforedeploy
 cp env.prod .env
 
-UI_PATH="../../ui";
+UI_PATH="../bhakundo-webapp-react/";
 
 export PORT=80
 
@@ -33,20 +33,20 @@ rm package-lock.json
 npm install
 npm run build
 
-docker-compose build
-docker-compose up -d
+sudo docker-compose build
+sudo docker-compose up -d
 sleep 10
-docker-compose exec bhakundo /usr/bin/composer install --no-interaction
-docker-compose exec bhakundo php artisan key:generate
-docker-compose exec bhakundo php artisan config:clear
-docker-compose exec bhakundo php artisan config:cache
-docker-compose exec bhakundo php artisan route:clear
-docker-compose exec bhakundo php artisan view:clear
-docker-compose exec bhakundo php artisan optimize
-docker-compose exec bhakundo php artisan migrate --force
-docker-compose exec bhakundo php artisan db:seed --force --class=UsersTableSeeder
-docker-compose exec bhakundo php aritsan storage:link
-docker-compose exec bhakundo php artisan passport:install
+sudo docker-compose exec bhakundo /usr/bin/composer install --no-interaction
+sudo docker-compose exec bhakundo php artisan key:generate
+sudo docker-compose exec bhakundo php artisan config:clear
+sudo docker-compose exec bhakundo php artisan config:cache
+sudo docker-compose exec bhakundo php artisan route:clear
+sudo docker-compose exec bhakundo php artisan view:clear
+sudo docker-compose exec bhakundo php artisan optimize
+sudo docker-compose exec bhakundo php artisan migrate --force
+sudo docker-compose exec bhakundo php artisan db:seed --force --class=UsersTableSeeder
+sudo docker-compose exec bhakundo php aritsan storage:link
+sudo docker-compose exec bhakundo php artisan passport:install
 
 
 echo "Deployed Sucessfully! Check Servers."
