@@ -3,11 +3,10 @@ setTimeout(function() {
 }, 5000); // 5000
 
 const csrfToken = document.head.querySelector('meta[name="csrf-token"]').content;
-console.log(csrfToken);
 ClassicEditor
     .create( document.querySelector( '#js-ckeditor5-classic' ),{
         ckfinder: {
-            uploadUrl: 'http://localhost:80/api/uploadNewsImage',
+            uploadUrl: 'http://bhakundo.com.np/api/uploadNewsImage',
 
         }
     })

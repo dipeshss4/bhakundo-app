@@ -17,6 +17,8 @@ use Illuminate\Support\Facades\Route;
 
 Route::middleware(['auth:api'])->group(function () {
     Route::get('logout-api',[\App\Http\Controllers\Backend\LoginController::class,'logout'])->name('logout-api');
+    Route::post('insert-comment',[\App\Http\Controllers\FrontendNewsController::class,'insertComment']);
+    Route::post('insert-reactions',[\App\Http\Controllers\FrontendNewsController::class,'insertReaction']);
 });
 Route::get('getTrendingNews',[\App\Http\Controllers\FrontendNewsController::class,'getTrendingNews']);
 Route::post('uploadNewsImage',[\App\Http\Controllers\Backend\ImageController::class,'uploadImage']);

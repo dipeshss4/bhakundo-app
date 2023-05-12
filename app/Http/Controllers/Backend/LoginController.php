@@ -9,6 +9,9 @@ use Auth;
 use http\Client\Curl\User;
 use Illuminate\Http\Request;
 use Laravel\Passport\Token;
+use Laravel\Socialite\Facades\Socialite;
+use Str;
+
 
 class LoginController extends Controller
 {
@@ -101,5 +104,68 @@ class LoginController extends Controller
                 'data' =>'successfully updated'
             ]);
         }
+    }
+    public function redirectToFacebook()
+    {
+        return Socialite::driver('facebook')->redirect();
+    }
+
+    public function handleFacebookCallback(Request $request)
+    {
+        $socialiteUser = Socialite::driver('facebook')->user();
+
+        // Check if user already exists in your database
+        $user = \App\Models\User::where('email', $socialiteUser->getEmail())->first();
+
+        if (!$user) {
+            // User does not exist, create new user
+            $user = new \App\Models\User();
+            $user->first_name = $socialiteUser->getName();
+            $user->last_name =$socialiteUser->getName();
+            $user->email = $socialiteUser->getEmail();
+            $user->image=$socialiteUser->getAvatar();
+            $user->password = bcrypt(Str::random(40)); // Random password for social logins
+            $user->save();
+        }
+
+        // Issue access token with Passport
+        $token = $user->createToken('Social Login')->accessToken;
+
+        return response()->json([
+            'access_token' => $token,
+            'user' => $user
+        ]);
+    }
+
+    public function redirectToGoogle()
+    {
+        return Socialite::driver('google')->redirect();
+    }
+
+    public function handleGoogleCallback(Request $request)
+    {
+        $socialiteUser = Socialite::driver('google')->user();
+
+        // Check if user already exists in your database
+        $user = \App\Models\User::where('email', $socialiteUser->getEmail())->first();
+
+        if (!$user) {
+            // User does not exist, create new user
+            $user = new \App\Models\User();
+            $user->first_name = $socialiteUser->getName();
+            $user->last_name = $socialiteUser->getName();
+            $user->email = $socialiteUser->getEmail();
+            $user->image =$socialiteUser->getAvatar();
+            $user->password = bcrypt(Str::random(40)); // Random password for social logins
+            $user->save();
+        }
+
+        // Issue access token with Passport
+        $token = $user->createToken('Social Login')->accessToken;
+
+        return response()->json([
+            'access_token' => $token,
+            'user' => $user
+        ]);
     }
 }
