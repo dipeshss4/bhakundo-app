@@ -186,7 +186,7 @@ class FrontendNewsController extends Controller
        }
     }
     public  function  getNewsAccordingCategory($id){
-       $news = News::with('author')
+       $news = News::with('author.user')
            ->where('news_category_id',$id)
            ->where('status',1)
            ->get();
