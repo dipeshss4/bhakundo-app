@@ -54,6 +54,14 @@
                                 <div class="alert alert-danger">{{ $message }}</div>
                                 @enderror
                             </div>
+
+                            <div class="mb-4">
+                                <label class="form-label" for="example-text-input">Content </label>
+                                <textarea id="js-ckeditor5-classic" name="meta_description"></textarea>
+                                @error('meta_description')
+                                <div class="alert alert-danger">{{ $message }}</div>
+                                @enderror
+                            </div>
                             <div class="mb-4">
                                 <label class="form-label" for="author">Author</label>
                                 <select class="form-select" id="example-select" name="author_id">

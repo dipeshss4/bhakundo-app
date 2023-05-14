@@ -10,7 +10,7 @@ use Spatie\MediaLibrary\InteractsWithMedia;
 class News extends Model implements  HasMedia
 {
     use HasFactory,InteractsWithMedia;
-    protected $fillable = ['title','content','image_url','video_url','author_id','news_category_id','is_trending','recommend','featured','status'];
+    protected $fillable = ['title','content','image_url','video_url','author_id','news_category_id','is_trending','recommend','featured','status','meta_description'];
     public function author()
     {
         return $this->belongsTo(Author::class);

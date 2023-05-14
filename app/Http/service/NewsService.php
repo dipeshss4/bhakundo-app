@@ -25,7 +25,8 @@ class NewsService
              'status'  =>$request->get('status'),
              'is_trending' =>$request->get('is_trending'),
              'featured'  =>$request->get('is_featured'),
-             'recommend' =>$request->get('is_recommended')
+             'recommend' =>$request->get('is_recommended'),
+             'meta_description' =>$request->get('meta_description')
          ]);
 
 
@@ -56,7 +57,8 @@ class NewsService
           'status'  =>$request->get('status'),
           'is_trending' =>$request->get('is_trending'),
           'featured'  =>$request->get('is_featured'),
-          'recommend' =>$request->get('is_recommended')
+          'recommend' =>$request->get('is_recommended'),
+           'meta_description' =>$request->get('meta_description')
       ]);
     }
 
