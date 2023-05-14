@@ -184,7 +184,23 @@ class FrontendNewsController extends Controller
                'type' => $request->get('reactions') =='like' ? 'like' :'dislike'
            ]);
        }
-
-
+    }
+    public  function  getNewsAccordingCategory($id){
+       $news = News::with('author')
+           ->where('news_category_id',$id)
+           ->where('status',1)
+           ->get();
+       if($news){
+           return response()->json([
+               'success'=>true,
+               'data'  =>$news
+           ]);
+           }
+       else{
+        return response()->json([
+            'success' => false,
+            'data'    =>'No any data'
+        ]);
+       }
     }
 }

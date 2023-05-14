@@ -41,6 +41,7 @@ Route::middleware(['auth', 'role:admin|editor'])->group(function () {
     Route::get('viewProfile',[\App\Http\Controllers\Backend\DashboardController::class,'viewProfile'])->name('profile');
     Route::get('editProfile/{id}',[\App\Http\Controllers\Backend\DashboardController::class,'editProfile'])->name('editProfile');
     Route::resource('playerstats',\App\Http\Controllers\Backend\PlayerStatsController::class);
+
     Route::match(['get', 'post'], '/dashboard', function(){
         return view('dashboard');
     });
