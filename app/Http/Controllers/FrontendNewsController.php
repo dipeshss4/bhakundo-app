@@ -203,4 +203,22 @@ class FrontendNewsController extends Controller
         ]);
        }
     }
+    public  function getAuthorPost($id){
+        $news = News::with('author.user')
+            ->where('author_id',$id)
+            ->where('status',1)
+            ->get();
+        if($news){
+            return response()->json([
+                'success'=>true,
+                'data'  =>$news
+            ]);
+        }
+        else{
+            return response()->json([
+                'success' => false,
+                'data'    =>'No any data'
+            ]);
+        }
+    }
 }
