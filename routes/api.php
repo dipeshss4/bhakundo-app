@@ -39,7 +39,7 @@ Route::post('register-api',[\App\Http\Controllers\Backend\LoginController::class
 Route::post('login-api',[\App\Http\Controllers\Backend\LoginController::class,'login'])->name('login-api');
 Route::get('getLatestNews',[\App\Http\Controllers\FrontendNewsController::class,'getLatestNews']);
 Route::get('getNewsData/{id}',[\App\Http\Controllers\FrontendNewsController::class,'getNewsAccordingCategory']);
-
+Route::get('getAuthorPost/{id}',[\App\Http\Controllers\FrontendNewsController::class,'getAuthorPost']);
 Route::get('points/{id}',[\App\Http\Controllers\RestPointsController::class,'getPointsTable']);
 Route::patch('updateProfile/{id}',[\App\Http\Controllers\Backend\LoginController::class,'editProfile']);
 
