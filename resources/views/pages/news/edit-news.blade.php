@@ -55,6 +55,13 @@
                                 @enderror
                             </div>
                             <div class="mb-4">
+                                <label class="form-label" for="example-text-input">Meta Description </label>
+                                <textarea id="js-ckeditor5-classic"  name="meta_description">{{$newsEdit->meta_description}}</textarea>
+                                @error('meta_description')
+                                <div class="alert alert-danger">{{ $message }}</div>
+                                @enderror
+                            </div>
+                            <div class="mb-4">
                                 <label class="form-label" for="author">Author</label>
                                 <select class="form-select" id="example-select" name="author_id">
                                     @foreach($authors as $newAuthors)
