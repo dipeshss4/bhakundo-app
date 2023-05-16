@@ -40,5 +40,8 @@ class News extends Model implements  HasMedia
     {
         $this->increment('score', 10);
     }
+    public function tags(){
+        return $this->belongsToMany(Tag::class);
+    }
 
 }

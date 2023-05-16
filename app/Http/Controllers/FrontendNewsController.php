@@ -221,4 +221,28 @@ class FrontendNewsController extends Controller
             ]);
         }
     }
+    public function getComments($id){
+        try {
+            $comments = Comments::with('user')->where('news_id', $id)->get();
+            if ($comments->count() > 0) {
+                return response()->json([
+                    'success' => true,
+                    'data' => $comments
+                ], 200);
+            } else {
+                return response()->json([
+                    'success' => true,
+                    'message' => 'No comments found'
+                ], 200);
+            }
+        } catch (\Exception $e) {
+            // Log the error for debugging purposes
+            \Log::error($e);
+            // Return an error response
+            return response()->json([
+                'success' => false,
+                'message' => 'An error occurred'
+            ], 500);
+        }
+    }
 }
