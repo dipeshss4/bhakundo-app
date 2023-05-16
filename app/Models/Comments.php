@@ -9,4 +9,8 @@ class Comments extends Model
 {
     use HasFactory;
     protected $fillable = ['news_id','user_id','content'];
+    public function user()
+    {
+        return $this->belongsTo(User::class);
+    }
 }

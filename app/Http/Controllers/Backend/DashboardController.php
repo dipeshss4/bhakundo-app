@@ -34,4 +34,8 @@ class DashboardController extends Controller
           $user=  User::find($id);
         return view('pages.profile.edit-user-profile',compact('user'));
     }
+    public  function numberOfUsers(){
+
+
+    }
 }
