@@ -1,5 +1,17 @@
 <?php
 
+use App\Http\Controllers\Backend\AuthorController;
+use App\Http\Controllers\Backend\DashboardController;
+use App\Http\Controllers\Backend\LeaugeController;
+use App\Http\Controllers\Backend\LoginController;
+use App\Http\Controllers\Backend\MatchesController;
+use App\Http\Controllers\Backend\NewsCategoryController;
+use App\Http\Controllers\Backend\NewsController;
+use App\Http\Controllers\Backend\PlayerController;
+use App\Http\Controllers\Backend\PlayerStatsController;
+use App\Http\Controllers\Backend\RoleController;
+use App\Http\Controllers\Backend\TeamsController;
+use App\Http\Controllers\Backend\UserController;
 use Illuminate\Support\Facades\Route;
 
 /*
@@ -29,18 +41,18 @@ foreach ($UI_ROUTES as $route) {
 Auth::routes();
 
 Route::middleware(['auth', 'role:admin|editor'])->group(function () {
-    Route::resource('news',\App\Http\Controllers\Backend\NewsController::class);
-    Route::resource('author',\App\Http\Controllers\Backend\AuthorController::class);
-    Route::resource('users',\App\Http\Controllers\Backend\UserController::class);
-    Route::resource('roles',\App\Http\Controllers\Backend\RoleController::class);
-    Route::resource('news-category',\App\Http\Controllers\Backend\NewsCategoryController::class);
-    Route::resource('leauge',\App\Http\Controllers\Backend\LeaugeController::class);
-    Route::resource('players',\App\Http\Controllers\Backend\PlayerController::class);
-    Route::resource('teams',\App\Http\Controllers\Backend\TeamsController::class);
-    Route::resource('match',\App\Http\Controllers\Backend\MatchesController::class);
-    Route::get('viewProfile',[\App\Http\Controllers\Backend\DashboardController::class,'viewProfile'])->name('profile');
-    Route::get('editProfile/{id}',[\App\Http\Controllers\Backend\DashboardController::class,'editProfile'])->name('editProfile');
-    Route::resource('playerstats',\App\Http\Controllers\Backend\PlayerStatsController::class);
+    Route::resource('news', NewsController::class);
+    Route::resource('author', AuthorController::class);
+    Route::resource('users', UserController::class);
+    Route::resource('roles', RoleController::class);
+    Route::resource('news-category', NewsCategoryController::class);
+    Route::resource('leauge', LeaugeController::class);
+    Route::resource('players', PlayerController::class);
+    Route::resource('teams', TeamsController::class);
+    Route::resource('match', MatchesController::class);
+    Route::get('viewProfile',[DashboardController::class,'viewProfile'])->name('profile');
+    Route::get('editProfile/{id}',[DashboardController::class,'editProfile'])->name('editProfile');
+    Route::resource('playerstats', PlayerStatsController::class);
 
     Route::match(['get', 'post'], '/dashboard', function(){
         return view('dashboard');
@@ -48,10 +60,11 @@ Route::middleware(['auth', 'role:admin|editor'])->group(function () {
 
 });
 
-Route::get('/auth/facebook', [\App\Http\Controllers\Backend\LoginController::class,'redirectToFacebook']);
-Route::get('/auth/facebook/callback',[\App\Http\Controllers\Backend\LoginController::class,'handleFacebookCallback']);
-Route::get('/auth/google', [\App\Http\Controllers\Backend\LoginController::class,'redirectToGoogle']);
-Route::get('/auth/google/callback', [\App\Http\Controllers\Backend\LoginController::class,'handleGoogleCallback']);
+Route::get('/auth/facebook', [LoginController::class,'redirectToFacebook']);
+Route::get('/auth/facebook/callback',[LoginController::class,'handleFacebookCallback']);
+Route::get('/auth/google', [LoginController::class,'redirectToGoogle']);
+Route::get('/auth/google/callback', [LoginController::class,'handleGoogleCallback']);
 
 Route::get('/home', [App\Http\Controllers\HomeController::class, 'index'])->name('home');
 
+Route::view('{path}', 'Home')->where('path', '([A-z\d\-\/_.]+)?');
