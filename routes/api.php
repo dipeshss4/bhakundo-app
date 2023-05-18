@@ -25,7 +25,6 @@ Route::middleware(['auth:api'])->group(function () {
     Route::get('logout-api',[LoginController::class,'logout'])->name('logout-api');
     Route::post('insert-comment',[FrontendNewsController::class,'insertComment']);
     Route::post('insert-reactions',[FrontendNewsController::class,'insertReaction']);
-
 });
 Route::get('getTrendingNews',[FrontendNewsController::class,'getTrendingNews']);
 Route::post('uploadNewsImage',[\App\Http\Controllers\Backend\ImageController::class,'uploadImage']);
