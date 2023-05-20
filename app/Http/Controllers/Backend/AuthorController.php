@@ -49,7 +49,12 @@ class AuthorController extends Controller
     {
         $author = Author::create([
             'user_id' =>$request->get('author_id'),
-            'status' =>$request->get('status')
+            'status' =>$request->get('status'),
+            'meta_description' =>$request->get('meta-description'),
+            'facebook_links' =>$request->get('facebook_links'),
+            'twitter_links' =>$request->get('twitter_links'),
+            'instagram_links' =>$request->get('instagram_links'),
+            'tiktok_links'  =>$request->get('tiktok_links')
         ]);
         if ($author){
             return  redirect()->route('author.index')->with('success','Successfully Author Created');
@@ -96,7 +101,12 @@ class AuthorController extends Controller
     {
         $author =Author::where('id',$id)->update([
             'user_id' =>$request->get('author_id'),
-            'status' => $request->get('status'),
+            'status' =>$request->get('status'),
+            'meta_description' =>$request->get('meta-description'),
+            'facebook_links' =>$request->get('facebook_links'),
+            'twitter_links' =>$request->get('twitter_links'),
+            'instagram_links' =>$request->get('instagram_links'),
+            'tiktok_links'  =>$request->get('tiktok_links')
         ]);
         if ($author){
             return  redirect()->route('author.index')->with('success','successfully updated authors');

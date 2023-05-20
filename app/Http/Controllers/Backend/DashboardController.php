@@ -38,4 +38,10 @@ class DashboardController extends Controller
 
 
     }
+    public  function performLogout(){
+       $logout= Auth::logout();
+       if ($logout){
+           return redirect()->route('/dashboard')->with('successfully logout');
+       }
+    }
 }

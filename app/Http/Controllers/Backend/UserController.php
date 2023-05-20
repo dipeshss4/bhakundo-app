@@ -26,22 +26,41 @@ class UserController extends Controller
     /**
      * Show the form for creating a new resource.
      *
-     * @return \Illuminate\Http\Response
+     * @return \Illuminate\Contracts\Foundation\Application|\Illuminate\Contracts\View\Factory|\Illuminate\Contracts\View\View
      */
     public function create()
-    {
-        return  view('pages.users.create-users');
+    {    $roles=Role::all();
+        return  view('pages.users.create-users',compact('roles'));
     }
 
     /**
      * Store a newly created resource in storage.
      *
      * @param  \Illuminate\Http\Request  $request
-     * @return \Illuminate\Http\Response
+     * @return \Illuminate\Http\RedirectResponse
      */
-    public function store(Request $request)
+    public function store(UserRequest $request)
     {
-        //
+       $users= User::create([
+            'first_name' => $request->get('first_name'),
+            'last_name' => $request->get('last_name'),
+            'email' =>  $request->get('email'),
+            'address' => $request->get('address'),
+            'country' => $request->get('country'),
+            'contact_no' => $request->get('contact_no'),
+            'password' => bcrypt($request->get('password'))
+        ]);
+
+        $user = User::findOrFail($users->id);
+        $roleIds = explode(',', $request->input('roles'));
+        $roles = Role::whereIn('id', $roleIds)->get();
+        $user->syncRoles($roles);
+        if ($users){
+            return  redirect()->route('users.index')->with('success','User Successfully Created');
+        }
+        else{
+            return  redirect()->back()->with('error','cannot Create users');
+        }
     }
 
     /**
