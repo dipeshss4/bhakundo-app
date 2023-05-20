@@ -48,6 +48,38 @@
                                 </select>
                             </div>
                             <div class="mb-4">
+                                <label class="form-label" for="meta-description">Meta Description</label>
+                                <textarea class="form-control" rows="5" id="description" name="meta-description"></textarea>
+                            </div>
+                            <div class="mb-4">
+                                <label class="form-label" for="example-text-input">Facebook  Link </label>
+                                <input type="text" class="form-control" id="val-name" name="facebook_links"  placeholder=" Facebook Title">
+                                @error('facebook_links')
+                                <div class="alert alert-danger">{{ $message }}</div>
+                                @enderror
+                            </div>
+                            <div class="mb-4">
+                                <label class="form-label" for="example-text-input">Twitter Links </label>
+                                <input type="text" class="form-control" id="val-name" name="twitter_links"  placeholder=" Twitter Links">
+                                @error('twitter_links')
+                                <div class="alert alert-danger">{{ $message }}</div>
+                                @enderror
+                            </div>
+                            <div class="mb-4">
+                                <label class="form-label" for="example-text-input">Instagram Link </label>
+                                <input type="text" class="form-control" id="val-name" name="instagram_links"  placeholder=" Instagram Links">
+                                @error('instagram_links')
+                                <div class="alert alert-danger">{{ $message }}</div>
+                                @enderror
+                            </div>
+                            <div class="mb-4">
+                                <label class="form-label" for="example-text-input">Tiktok Link </label>
+                                <input type="text" class="form-control" id="val-name" name="tiktok_links"  placeholder=" Tiktok Link">
+                                @error('tiktok_links')
+                                <div class="alert alert-danger">{{ $message }}</div>
+                                @enderror
+                            </div>
+                            <div class="mb-4">
                                 <label class="form-label">Status</label>
                                 <div class="space-y-2">
                                     <div class="form-check">
@@ -60,6 +92,8 @@
                                     </div>
                                 </div>
                             </div>
+
+
                             <button type="submit" class="btn btn-primary">Submit</button>
                         </form>
 

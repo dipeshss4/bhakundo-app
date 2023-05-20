@@ -57,6 +57,7 @@ Route::middleware(['auth', 'role:admin|editor'])->group(function () {
     Route::match(['get', 'post'], '/dashboard', function(){
         return view('dashboard');
     });
+    Route::get('performLogout',[DashboardController::class,'performLogout'])->name('admin-logout');
 
 });
 

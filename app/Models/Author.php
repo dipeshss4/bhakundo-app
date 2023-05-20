@@ -8,7 +8,7 @@ use Illuminate\Database\Eloquent\Model;
 class Author extends Model
 {
     use HasFactory;
-    protected $fillable = ['user_id','remarks','status'];
+    protected $fillable = ['user_id','remarks','status','meta_description','facebook_links','instagram_links','twitter_links','tiktok_links'];
 
     public function user()
     {
