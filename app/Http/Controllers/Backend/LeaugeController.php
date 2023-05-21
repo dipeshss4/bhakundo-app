@@ -99,10 +99,16 @@ class LeaugeController extends Controller
      * Remove the specified resource from storage.
      *
      * @param  int  $id
-     * @return \Illuminate\Http\Response
+     * @return \Illuminate\Http\RedirectResponse
      */
     public function destroy($id)
     {
-        //
+        $playerDelete =League::where('id',$id)->delete();
+        if ($playerDelete){
+            return  redirect()->route('league.index')->with('success','successfully Deleted');
+        }
+        else{
+            return  redirect()->back()->with('error','cannot be Deleted');
+        }
     }
 }

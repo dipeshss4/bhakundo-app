@@ -50,6 +50,16 @@
                 <h3 class="block-title">View All News
             </div>
             <div class="block-content block-content-full">
+                @if(session()->has('errors'))
+                    <div class="alert alert-danger">
+                        {{ session('errors') }}
+                    </div>
+                @endif
+                @if(session()->has('success'))
+                    <div class="alert alert-primary">
+                        {{ session('success') }}
+                    </div>
+                @endif
                 <!-- DataTables init on table by adding .js-dataTable-full class, functionality is initialized in js/pages/tables_datatables.js -->
                 <table class="table table-bordered table-striped table-vcenter js-dataTable-full">
                     <thead>

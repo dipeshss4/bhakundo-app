@@ -55,6 +55,11 @@
                         {{ session('errors') }}
                     </div>
                 @endif
+                    @if(session()->has('success'))
+                        <div class="alert alert-danger">
+                            {{ session('success') }}
+                        </div>
+                    @endif
                 <!-- DataTables init on table by adding .js-dataTable-full class, functionality is initialized in js/pages/tables_datatables.js -->
                 <table class="table table-bordered table-striped table-vcenter js-dataTable-full">
                     <thead>
@@ -107,7 +112,8 @@
 
                             <td class="text-muted">
                                 <a href="{{route('match.edit',$newMatches->id)}}" class="btn btn-primary">Edit </a>
-                                <form action="{{route('match.destroy',$newMatches->id)}}" method="DELETE">
+                                <form action="{{route('match.destroy',$newMatches->id)}}" method="Post">
+                                    @csrf
                                     @method('DELETE')
                                     <button class="btn btn-danger">Delete</button>
                                 </form>

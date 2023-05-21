@@ -50,6 +50,16 @@
                 <h3 class="block-title">View All News Category
             </div>
             <div class="block-content block-content-full">
+                @if(session()->has('errors'))
+                    <div class="alert alert-danger">
+                        {{ session('errors') }}
+                    </div>
+                @endif
+                @if(session()->has('success'))
+                    <div class="alert alert-primary">
+                        {{ session('success') }}
+                    </div>
+                @endif
                 <!-- DataTables init on table by adding .js-dataTable-full class, functionality is initialized in js/pages/tables_datatables.js -->
                 <table class="table table-bordered table-striped table-vcenter js-dataTable-full">
                     <thead>
@@ -80,7 +90,8 @@
                             </td>
                             <td class="text-muted">
                                 <a href="{{route('news-category.edit',$newCategory->id)}}" class="btn btn-primary">Edit </a>
-                                <form action="{{route('news-category.destroy',$newCategory->id)}}" method="DELETE">
+                                <form action="{{route('news-category.destroy',$newCategory->id)}}" method="Post">
+                                    @csrf
                                     @method('DELETE')
                                     <button class="btn btn-danger">Delete</button>
                                 </form>

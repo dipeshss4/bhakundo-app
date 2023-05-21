@@ -104,10 +104,16 @@ class TeamsController extends Controller
      * Remove the specified resource from storage.
      *
      * @param  int  $id
-     * @return \Illuminate\Http\Response
+     * @return \Illuminate\Http\RedirectResponse
      */
     public function destroy($id)
     {
-        //
+        $deleteTeam =Team::where('id',$id)->delete();
+        if ($deleteTeam){
+            return  redirect()->route('teams.index')->with('success','Successfully Deleted');
+        }
+        else{
+            return  redirect()->route('teams.index')->with('error','Teams Cannot Deleted');
+        }
     }
 }

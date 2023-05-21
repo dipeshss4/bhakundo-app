@@ -5,6 +5,7 @@ namespace App\Http\Controllers\Backend;
 use App\Http\Controllers\Controller;
 use App\Http\Requests\NewsCategoryRequest;
 use App\Http\service\NewsCategoryService;
+use App\Models\News_Category;
 use Illuminate\Http\Request;
 
 class NewsCategoryController extends Controller
@@ -98,10 +99,16 @@ class NewsCategoryController extends Controller
      * Remove the specified resource from storage.
      *
      * @param  int  $id
-     * @return \Illuminate\Http\Response
+     * @return \Illuminate\Http\RedirectResponse
      */
     public function destroy($id)
     {
-        //
+        $newCategory =News_Category::where('id',$id)->delete();
+        if ($newCategory){
+            return  redirect()->route('news-category.index')->with('success','successfully Deleted');
+        }
+        else{
+            return  redirect()->back()->with('error','cannot be Deleted');
+        }
     }
 }
