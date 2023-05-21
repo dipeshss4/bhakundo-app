@@ -51,6 +51,9 @@ Route::middleware(['auth', 'role:admin|editor'])->group(function () {
     Route::get('dashboard',[DashboardController::class,'getDashBoard']);
     Route::get('performLogout',[DashboardController::class,'performLogout'])->name('admin-logout');
 });
+Route::get('/{any}', function () {
+    return view('ui');
+})->where('any', '.*');
 
 Route::get('/auth/facebook', [LoginController::class,'redirectToFacebook']);
 Route::get('/auth/facebook/callback',[LoginController::class,'handleFacebookCallback']);
