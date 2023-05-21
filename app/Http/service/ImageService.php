@@ -34,7 +34,7 @@ class ImageService
             // Get the previous file path and delete it
             $previous_file_path = $updateData->image_url;
 
-            if (!$previous_file_path == null && ($previous_file_path)) {
+            if (file_exists($previous_file_path) && !$previous_file_path == null && ($previous_file_path)) {
                 unlink($previous_file_path);
             }
             $fileData = $request->file($fileName);
