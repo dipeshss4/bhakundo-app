@@ -116,7 +116,7 @@ class MatchesController extends Controller
     {
         $matchDelete= Matche::where('id',$id)->delete();
         if ($matchDelete){
-            return  redirect()->route('match.index')->with('success','Successfull Match Deleted');
+            return  redirect()->route('match.index')->with('success','Successfully Match Deleted');
         }
         else{
             return  redirect()->back()->with('error','cannot delete match');
