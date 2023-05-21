@@ -52,20 +52,16 @@ Route::middleware(['auth', 'role:admin|editor'])->group(function () {
     Route::resource('match', MatchesController::class);
     Route::get('viewProfile',[DashboardController::class,'viewProfile'])->name('profile');
     Route::get('editProfile/{id}',[DashboardController::class,'editProfile'])->name('editProfile');
+    Route::put('updateUser/{id}',[DashboardController::class,'updateUser'])->name('updateUser');;
     Route::resource('playerstats', PlayerStatsController::class);
-
-    Route::match(['get', 'post'], '/dashboard', function(){
-        return view('dashboard');
-    });
+    Route::get('admin',[DashboardController::class,'getDashBoard']);
+    Route::get('dashboard',[DashboardController::class,'getDashBoard']);
     Route::get('performLogout',[DashboardController::class,'performLogout'])->name('admin-logout');
-
 });
 
 Route::get('/auth/facebook', [LoginController::class,'redirectToFacebook']);
 Route::get('/auth/facebook/callback',[LoginController::class,'handleFacebookCallback']);
 Route::get('/auth/google', [LoginController::class,'redirectToGoogle']);
 Route::get('/auth/google/callback', [LoginController::class,'handleGoogleCallback']);
-
 Route::get('/home', [App\Http\Controllers\HomeController::class, 'index'])->name('home');
-
 Route::view('{path}', 'Home')->where('path', '([A-z\d\-\/_.]+)?');

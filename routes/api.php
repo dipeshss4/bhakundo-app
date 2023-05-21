@@ -49,5 +49,6 @@ Route::get('getAuthorPost/{id}',[FrontendNewsController::class,'getAuthorPost'])
 Route::get('points/{id}',[RestPointsController::class,'getPointsTable']);
 Route::patch('updateProfile/{id}',[LoginController::class,'editProfile']);
 Route::get('getComments/{id}',[FrontendNewsController::class,'getComments']);
+Route::get('getNationalTeams',[RestTeamController::class,'getNationTeams']);
 
 

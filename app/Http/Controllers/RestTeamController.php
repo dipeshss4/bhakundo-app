@@ -40,4 +40,19 @@ class RestTeamController extends Controller
         }
 
     }
+    public  function  getNationTeams(){
+        $teams =Team::where('is_nation','1')->get();
+        if ($teams->count()>0){
+            return response()->json([
+                'success' =>true,
+                'data'   =>$teams
+            ]);
+        }
+        else{
+            return response()->json([
+                'success' =>true,
+                'data'   =>'No any Data'
+            ]);
+        }
+    }
 }

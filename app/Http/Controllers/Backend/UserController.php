@@ -121,10 +121,23 @@ class UserController extends Controller
      * Remove the specified resource from storage.
      *
      * @param  int  $id
-     * @return \Illuminate\Http\Response
+     * @return \Illuminate\Http\RedirectResponse
      */
     public function destroy($id)
     {
-        //
+        try {
+            $users= User::where($id)->delete();
+            if ($users){
+                return  redirect()->route('users.index')->with('success','successfully deleted');
+            }
+            else{
+                return  redirect()->back()->with('error','cannot be deleted');
+            }
+        }
+        catch (\Exception $exception){
+            \Log::error($exception);
+        }
+
+
     }
 }

@@ -32,11 +32,11 @@
             <div class="content content-full">
                 <div class="py-5 text-center">
                     <a class="img-link" href="be_pages_generic_profile.html">
-                        <img class="img-avatar img-avatar96 img-avatar-thumb" src="assets/media/avatars/avatar10.jpg" alt="">
+                        <img class="img-avatar img-avatar96 img-avatar-thumb" src="{{$user->image}}" alt="">
                     </a>
                     <h1 class="fw-bold my-2 text-white">Edit Account</h1>
                     <h2 class="h4 fw-bold text-white-75">
-                        George Taylor
+                       {{$user->first_name ,'',$user->last_name}}
                     </h2>
                     <a class="btn btn-secondary" href="be_pages_generic_profile.html">
                         <i class="fa fa-fw fa-arrow-left opacity-50"></i> Back to Profile
@@ -48,7 +48,9 @@
     <div class="content content-full content-boxed">
         <div class="block block-rounded">
             <div class="block-content">
-                <form action="be_pages_generic_profile_edit.html" method="POST" enctype="multipart/form-data" onsubmit="return false;">
+                <form action="{{route('updateUser',$user->id)}}" method="POST" enctype="multipart/form-data">
+                    @method('PUT')
+                    @csrf
                     <!-- User Profile -->
                     <h2 class="content-heading pt-0">
                         <i class="fa fa-fw fa-user-circle text-muted me-1"></i> User Profile
@@ -61,38 +63,50 @@
                         </div>
                         <div class="col-lg-8 col-xl-5">
                             <div class="mb-4">
-                                <label class="form-label" for="dm-profile-edit-username">Username</label>
-                                <input type="text" class="form-control" id="dm-profile-edit-username" name="dm-profile-edit-username" placeholder="Enter your username.." value="john.doe">
+                                <label class="form-label" for="dm-profile-edit-name">First Name</label>
+                                <input type="text" class="form-control" id="dm-profile-edit-name" name="first_name" placeholder="Enter your name.." value="{{$user->first_name}}">
+                                @error('first_name')
+                                <div class="alert alert-danger">{{ $message }}</div>
+                                @enderror
                             </div>
                             <div class="mb-4">
-                                <label class="form-label" for="dm-profile-edit-name">Name</label>
-                                <input type="text" class="form-control" id="dm-profile-edit-name" name="dm-profile-edit-name" placeholder="Enter your name.." value="John Doe">
+                                <label class="form-label" for="dm-profile-edit-name">Last Name</label>
+                                <input type="text" class="form-control" id="dm-profile-edit-name" name="last_name"  value="{{$user->last_name}}">
+                                @error('last_name')
+                                <div class="alert alert-danger">{{ $message }}</div>
+                                @enderror
                             </div>
                             <div class="mb-4">
                                 <label class="form-label" for="dm-profile-edit-email">Email Address</label>
-                                <input type="email" class="form-control" id="dm-profile-edit-email" name="dm-profile-edit-email" placeholder="Enter your email.." value="john.doe@example.com">
+                                <input type="email" class="form-control" id="dm-profile-edit-email" name="email" placeholder="Enter your email.." value="{{$user->email}}">
+                                @error('email')
+                                <div class="alert alert-danger">{{ $message }}</div>
+                                @enderror
                             </div>
                             <div class="mb-4">
-                                <label class="form-label" for="dm-profile-edit-job-title">Job Title</label>
-                                <input type="text" class="form-control" id="dm-profile-edit-job-title" name="dm-profile-edit-job-title" placeholder="Add your job title.." value="Product Manager">
-                            </div>
-                            <div class="mb-4">
-                                <label class="form-label" for="dm-profile-edit-company">Company</label>
-                                <input type="text" class="form-control" id="dm-profile-edit-company" name="dm-profile-edit-company" value="@ProXdesign" readonly="">
+                                <label class="form-label" for="dm-profile-edit-email">Country</label>
+                                <input type="text" class="form-control" id="dm-profile-edit-email" name="country"  value="{{$user->country}}">
+                                @error('country')
+                                <div class="alert alert-danger">{{ $message }}</div>
+                                @enderror
                             </div>
                             <div class="mb-4">
                                 <label class="form-label">Your Avatar</label>
                                 <div class="push">
-                                    <img class="img-avatar" src="assets/media/avatars/avatar10.jpg" alt="">
+                                    <img class="img-avatar" src="{{$user->image}}" alt="">
                                 </div>
-                                <label class="form-label" for="dm-profile-edit-avatar">Choose a new avatar</label>
-                                <input class="form-control" type="file" id="dm-profile-edit-avatar">
+                                <label class="form-label" for="image">Choose a new avatar</label>
+
+                                <input class="form-control" type="file" id="image" name="image">
+                                <div class="card mt-3" style="max-width: 200px;">
+                                    <img id="preview-logo" class="card-img-top" src="#" alt="Preview" style="display: none;">
+                                    <div class="card-body">
+                                        <h5 class="card-title">Image Preview</h5>
+                                    </div>
+                                </div>
                             </div>
                         </div>
                     </div>
-                    <!-- END User Profile -->
-
-                    <!-- Change Password -->
                     <h2 class="content-heading pt-0">
                         <i class="fa fa-fw fa-asterisk text-muted me-1"></i> Change Password
                     </h2>
@@ -105,79 +119,31 @@
                         <div class="col-lg-8 col-xl-5">
                             <div class="mb-4">
                                 <label class="form-label" for="dm-profile-edit-password">Current Password</label>
-                                <input type="password" class="form-control" id="dm-profile-edit-password" name="dm-profile-edit-password">
+                                <input type="password" class="form-control" id="dm-profile-edit-password" name="old_password">
+                                @error('old_password')
+                                <div class="alert alert-danger">{{ $message }}</div>
+                                @enderror
                             </div>
                             <div class="row mb-4">
                                 <div class="col-12">
                                     <label class="form-label" for="dm-profile-edit-password-new">New Password</label>
-                                    <input type="password" class="form-control" id="dm-profile-edit-password-new" name="dm-profile-edit-password-new">
+                                    <input type="password" class="form-control" id="dm-profile-edit-password-new" name="password">
                                 </div>
+                                @error('password')
+                                <div class="alert alert-danger">{{ $message }}</div>
+                                @enderror
                             </div>
                             <div class="row mb-4">
                                 <div class="col-12">
                                     <label class="form-label" for="dm-profile-edit-password-new-confirm">Confirm New Password</label>
-                                    <input type="password" class="form-control" id="dm-profile-edit-password-new-confirm" name="dm-profile-edit-password-new-confirm">
+                                    <input type="password" class="form-control" id="dm-profile-edit-password-new-confirm" name="password_confirmation">
                                 </div>
+                                @error('c_password')
+                                <div class="alert alert-danger">{{ $message }}</div>
+                                @enderror
                             </div>
                         </div>
                     </div>
-                    <!-- END Change Password -->
-
-                    <!-- Connections -->
-
-
-                    <!-- END Connections -->
-
-                    <!-- Billing Information -->
-                    <h2 class="content-heading pt-0">
-                        <i class="fab fa-fw fa-paypal text-muted me-1"></i> Billing Information
-                    </h2>
-                    <div class="row push">
-                        <div class="col-lg-4">
-                            <p class="text-muted">
-                                Your billing information is never shown to other users and only used for creating your invoices.
-                            </p>
-                        </div>
-                        <div class="col-lg-8 col-xl-5">
-                            <div class="mb-4">
-                                <label class="form-label" for="dm-profile-edit-company-name">Company Name (Optional)</label>
-                                <input type="text" class="form-control" id="dm-profile-edit-company-name" name="dm-profile-edit-company-name">
-                            </div>
-                            <div class="row mb-4">
-                                <div class="col-6">
-                                    <label class="form-label" for="dm-profile-edit-firstname">Firstname</label>
-                                    <input type="text" class="form-control" id="dm-profile-edit-firstname" name="dm-profile-edit-firstname">
-                                </div>
-                                <div class="col-6">
-                                    <label class="form-label" for="dm-profile-edit-lastname">Lastname</label>
-                                    <input type="text" class="form-control" id="dm-profile-edit-lastname" name="dm-profile-edit-lastname">
-                                </div>
-                            </div>
-                            <div class="mb-4">
-                                <label class="form-label" for="dm-profile-edit-street-1">Street Address 1</label>
-                                <input type="text" class="form-control" id="dm-profile-edit-street-1" name="dm-profile-edit-street-1">
-                            </div>
-                            <div class="mb-4">
-                                <label class="form-label" for="dm-profile-edit-street-2">Street Address 2</label>
-                                <input type="text" class="form-control" id="dm-profile-edit-street-2" name="dm-profile-edit-street-2">
-                            </div>
-                            <div class="mb-4">
-                                <label class="form-label" for="dm-profile-edit-city">City</label>
-                                <input type="text" class="form-control" id="dm-profile-edit-city" name="dm-profile-edit-city">
-                            </div>
-                            <div class="mb-4">
-                                <label class="form-label" for="dm-profile-edit-postal">Postal code</label>
-                                <input type="text" class="form-control" id="dm-profile-edit-postal" name="dm-profile-edit-postal">
-                            </div>
-                            <div class="mb-4">
-                                <label class="form-label" for="dm-profile-edit-vat">VAT Number</label>
-                                <input type="text" class="form-control" id="dm-profile-edit-vat" name="dm-profile-edit-vat" value="EA00000000" disabled="">
-                            </div>
-                        </div>
-                    </div>
-                    <!-- END Billing Information -->
-
-                    <!-- Submit -->
                     <div class="row push">
                         <div class="col-lg-8 col-xl-5 offset-lg-4">
                             <div class="mb-4">
