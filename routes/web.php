@@ -67,4 +67,3 @@ Route::get('/auth/facebook/callback',[LoginController::class,'handleFacebookCall
 Route::get('/auth/google', [LoginController::class,'redirectToGoogle']);
 Route::get('/auth/google/callback', [LoginController::class,'handleGoogleCallback']);
 Route::get('/home', [App\Http\Controllers\HomeController::class, 'index'])->name('home');
-Route::view('{path}', 'Home')->where('path', '([A-z\d\-\/_.]+)?');
