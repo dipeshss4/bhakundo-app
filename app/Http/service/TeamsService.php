@@ -23,6 +23,7 @@ class TeamsService
          'coach_image' => $this->ImageService->uploadImage($request,'coach_image','/coachImage'),
           'status'  =>$request->get('status'),
           'league_id' =>$request->get('league_id'),
+          'is_nation' =>$request->get('is_national')
       ]);
    }
    public  function updateTeams($request,$id){
@@ -34,6 +35,7 @@ class TeamsService
             'coach_image' => $this->ImageService->updateImage(Team::find($id),'coach_image','/coachImage',$request),
             'status'  =>$request->get('status'),
             'league_id' =>$request->get('league_id'),
+            'is_nation' =>$request->get('is_national')
         ]);
    }
 }

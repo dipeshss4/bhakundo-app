@@ -90,14 +90,8 @@
                             <div class="mb-4">
                                 <label class="form-label" for="author">Roles</label>
                                 <select class="form-select" id="example-select" name="roles" multiple>
-                                    @foreach($users->roles as $newRoles)
-                                        @foreach($roles as $roleData)
-                                            @if($newRoles->id  == $roleData->id)
-                                                <option checked="" value="{{$roleData->id}}">{{$roleData->name}}</option>
-                                            @else
-                                                <option  value="{{$roleData->id}}">{{$roleData->name}}</option>
-                                            @endif
-                                        @endforeach
+                                    @foreach($roles as $roleData)
+                                        <option  value="{{$roleData->id}}">{{$roleData->name}}</option>
                                     @endforeach
                                 </select>
                                 @error('country')

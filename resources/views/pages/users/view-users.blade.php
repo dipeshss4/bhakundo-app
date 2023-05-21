@@ -101,7 +101,8 @@
 
                             <td class="text-muted">
                                 <a href="{{route('users.edit',$newUsers->id)}}" class="btn btn-primary">Edit </a>
-                                <form action="{{route('users.destroy',$newUsers->id)}}" method="DELETE">
+                                <form action="{{route('users.destroy',$newUsers->id)}}" method="POST">
+                                    @csrf
                                     @method('DELETE')
                                     <button class="btn btn-danger">Delete</button>
                                 </form>

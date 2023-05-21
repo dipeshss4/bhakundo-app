@@ -106,6 +106,19 @@
                                 @enderror
                             </div>
                             <div class="mb-4">
+                                <label class="form-label">Is Nation Teams</label>
+                                <div class="space-y-2">
+                                    <div class="form-check">
+                                        <input class="form-check-input" type="radio" id="example-radios-default1" name="is_national" value="1" checked="">
+                                        <label class="form-check-label" for="example-radios-default1">Yes</label>
+                                    </div>
+                                    <div class="form-check">
+                                        <input class="form-check-input" type="radio" id="example-radios-default2" name="is_national" value="0">
+                                        <label class="form-check-label" for="example-radios-default2">No</label>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="mb-4">
                                 <label class="form-label">Status</label>
                                 <div class="space-y-2">
                                     <div class="form-check">
