@@ -66,7 +66,7 @@ class DashboardController extends Controller
             'email' =>  $request->get('email'),
             'password' => bcrypt($request->get('password')),
             'country' => $request->get('country'),
-            'image'    =>$this->imageService->uploadImage($request,'image','/users')
+            'image'    =>$this->imageService->uploadImage($request,'image','/users-image')
 
         ]);
         if ($userUpdate){
