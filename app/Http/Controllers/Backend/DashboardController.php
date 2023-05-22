@@ -66,7 +66,7 @@ class DashboardController extends Controller
             'email' =>  $request->get('email'),
             'password' => bcrypt($request->get('password')),
             'country' => $request->get('country'),
-            'image'    =>$this->imageService->uploadImage($request,'image','/users-image')
+            'image'    =>$this->imageService->uploadImage($request,'image','/users')
 
         ]);
         if ($userUpdate){
@@ -77,10 +77,9 @@ class DashboardController extends Controller
         }
     }
     public  function performLogout(){
-       $logout= Auth::logout();
-       if ($logout){
-           return redirect()->route('/dashboard')->with('successfully logout');
-       }
+           Auth::logout();
+           return redirect()->route('ui')->with('successfully logout');
+
     }
     public function getDashBoard(){
         $leagueCount =$this->numberofLeague();
