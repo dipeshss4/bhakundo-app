@@ -30,7 +30,7 @@ $UI_ROUTES = json_decode(file_get_contents(base_path() . "/ui.routes.json"), tru
 
 Route::get('/',function (){
     return view('ui');
-});
+})->name('ui');
 
 foreach ($UI_ROUTES as $route) {
     Route::get($route, function() {
