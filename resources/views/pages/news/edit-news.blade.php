@@ -49,7 +49,7 @@
                             </div>
                             <div class="mb-4">
                                 <label class="form-label" for="example-text-input">Content </label>
-                                <textarea id="js-ckeditor5-classic"  name="content">{{$newsEdit->content}}</textarea>
+                                <textarea id="js-ckeditor5-classic"  name="content" >{{ old('content', $newsEdit->content) }}</textarea>
                                 @error('content')
                                 <div class="alert alert-danger">{{ $message }}</div>
                                 @enderror
@@ -103,7 +103,7 @@
                             </div>
                             <div class="mb-4">
                                 <label class="form-label" for="video_url">Video URL <span class="text-danger">*</span></label>
-                                <input type="text" class="form-control" id="video_url" name="video_url"  placeholder="Video URL">
+                                <input type="text" class="form-control" id="video_url" name="video_url" value="{{$newsEdit->video_url}}" placeholder="Video URL">
                             </div>
                             <div class="mb-4">
                                 <label class="form-label">Is Trending</label>
