@@ -12,6 +12,7 @@ use App\Http\Controllers\Backend\PlayerStatsController;
 use App\Http\Controllers\Backend\RoleController;
 use App\Http\Controllers\Backend\TeamsController;
 use App\Http\Controllers\Backend\UserController;
+use App\Http\Controllers\UI\UIController;
 use Illuminate\Support\Facades\Route;
 
 /*
@@ -28,14 +29,8 @@ use Illuminate\Support\Facades\Route;
 // Example Routes
 $UI_ROUTES = json_decode(file_get_contents(base_path() . "/ui.routes.json"), true);
 
-Route::get('/',function (){
-    return view('ui');
-})->name('ui');
-
 foreach ($UI_ROUTES as $route) {
-    Route::get($route, function() {
-        return view('ui');
-    });
+    Route::get($route, [UIController::class, 'injectMeta']);
 }
 
 Auth::routes();
