@@ -16,7 +16,7 @@ class FrontendNewsController extends Controller
                $query->whereHas('roles', function($query) {
                    $query->where('name', 'editor');
                });
-           })->orderBy('updated_at','DESC')
+           })->orderBy('updated_at','DESC')->limit(5)
            ->get();
 
        if ($restNews){
